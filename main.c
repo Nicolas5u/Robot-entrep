@@ -1,6 +1,6 @@
-#include <stdio.h>
+#include "declaration.h"
 
-main() {
-	printf("Hello nico");
+int main() {
+	printf("Les malheurs de l'entrepôt");
 	return 0;
 }
