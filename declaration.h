@@ -1,5 +1,5 @@
-#ifndef DECLARATIONS_H
-#define DECLARATIONS_H
+#ifndef DECLARATION_H
+#define DECLARATION_H
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -26,12 +26,16 @@ typedef struct partie {
     Case** entrepot;
 } Partie;
 
+
 /* Définitions de toutes les fonctions */
 
 // Fonctions du fichier Interface.c
 char* couleur_element(Element e);
-Case** creer_plateau();
-void liberer_plateau(Partie partie);
+Case** creer_entrepot(int Qentrepot);
+void liberer_entrepot(Partie partie);
 void afficher_entrepot(Partie* partie);
+void Initianise_entrepot(Partie* partie, int Qentrepot);
+void PlacementInitiale1(Case** entrepot);
+void PlacementInitiale2(Case** entrepot);
 
 #endif

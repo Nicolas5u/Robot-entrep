@@ -22,7 +22,7 @@ char* couleur_element(Element e) {
 
 /* Fonction pour allouer et initialiser l'entrepôt (du 10 par 10) */
 
-Case** creer_plateau(){
+Case** creer_entrepot(int Qentrepot){
     // On alloue l'entrepôt 10 par 10
     Case** entrepot = (Case**)malloc(NB_LIGNE * sizeof(Case*));
     if (entrepot == NULL) {
@@ -45,9 +45,20 @@ Case** creer_plateau(){
             entrepot[i][j].e = caseDeChemin; // Par défaut, toutes les cases sont des cases de Chemin
         }
     }
+    if (Qentrepot == 1){
+        PlacementInitiale1(entrepot);
+    }else {
+        PlacementInitiale2(entrepot);
+    }
+    return entrepot;
+}
+
+/* Fonction pour placer le robot, les murs, les boites initialement dans le cas de base*/
+
+void PlacementInitiale1(Case** entrepot){
 
     // On place le robot
-    entrepot[3][3].e = robot;                                                                                      // C'EST ARBITRAIRE
+        entrepot[3][3].e = robot;                                                                                  // C'EST ARBITRAIRE
 
     // On place les boites                                                                                         // C'EST ARBITRAIRE
         entrepot[8][3].e = boite;
@@ -61,13 +72,35 @@ Case** creer_plateau(){
         entrepot[9][j].e = mur;
         entrepot[j][0].e = mur;
         entrepot[j][9].e = mur;
-    }
-    return entrepot;
 }
+}
+/* Fonction pour placer le robot, les murs, les boites initialement si l'entrepôt est particulier  A MODIFIER*/
 
+void PlacementInitiale2(Case** entrepot){
+    printf("Quelle taille fait l'entrepôt en longueur ?");
+    printf("Quelle taille fait l'entrepôt en largeur ?");
+    printf("A-ton des murs intérieurs ?");
+    printf("A-ton des boites à l'intérieur de l'entrepôt ?");
+    // On place le robot
+        entrepot[3][3].e = robot;                                                                                  // C'EST ARBITRAIRE
+
+    // On place les boites                                                                                         // C'EST ARBITRAIRE
+        entrepot[8][3].e = boite;
+        entrepot[8][4].e = boite;
+        entrepot[8][5].e = boite;
+        entrepot[8][6].e = boite;
+        
+    // On place les murs
+    for (int j = 0; j < NB_LIGNE; j++) {
+        entrepot[0][j].e = mur;
+        entrepot[9][j].e = mur;
+        entrepot[j][0].e = mur;
+        entrepot[j][9].e = mur;
+}
+}
 /* Fonction pour libérer l'espace mémoire de l'entrepôt (du 10 par 10) */
 
-void liberer_plateau(Partie partie){
+void liberer_entrepot(Partie partie){
     Case **plateau = partie.entrepot;
     for (int i = 0; i < NB_LIGNE; i++) {
             free(plateau[i]);
@@ -96,4 +129,8 @@ void afficher_entrepot(Partie* partie){
         printf("\n");
     }
     
+}
+
+void Initianise_entrepot(Partie* partie, int Qentrepot){
+    partie->entrepot = creer_entrepot(Qentrepot);
 }
