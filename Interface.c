@@ -22,7 +22,7 @@ char* couleur_element(Element e) {
 
 /* Fonction pour allouer et initialiser l'entrepôt (du 10 par 10) */
 
-Case** creer_entrepot(int Qentrepot){
+Case** creer_entrepot(int Qentrepot, Partie* partie){
     // On alloue l'entrepôt 10 par 10
     Case** entrepot = (Case**)malloc(NB_LIGNE * sizeof(Case*));
     if (entrepot == NULL) {
@@ -46,8 +46,10 @@ Case** creer_entrepot(int Qentrepot){
         }
     }
     if (Qentrepot == 1){
-        PlacementInitiale1(entrepot);
+
+        PlacementInitiale1(entrepot, partie);
     }else {
+        
         PlacementInitiale2(entrepot);
     }
     return entrepot;
@@ -55,10 +57,12 @@ Case** creer_entrepot(int Qentrepot){
 
 /* Fonction pour placer le robot, les murs, les boites initialement dans le cas de base*/
 
-void PlacementInitiale1(Case** entrepot){
+void PlacementInitiale1(Case** entrepot, Partie* partie){
 
     // On place le robot
         entrepot[3][3].e = robot;                                                                                  // C'EST ARBITRAIRE
+        partie->coup.xFrom = 3;
+        partie->coup.yFrom = 3;
 
     // On place les boites                                                                                         // C'EST ARBITRAIRE
         entrepot[8][3].e = boite;
@@ -74,6 +78,7 @@ void PlacementInitiale1(Case** entrepot){
         entrepot[j][9].e = mur;
 }
 }
+
 /* Fonction pour placer le robot, les murs, les boites initialement si l'entrepôt est particulier  A MODIFIER*/
 
 void PlacementInitiale2(Case** entrepot){
@@ -132,5 +137,6 @@ void afficher_entrepot(Partie* partie){
 }
 
 void Initianise_entrepot(Partie* partie, int Qentrepot){
-    partie->entrepot = creer_entrepot(Qentrepot);
+    partie->entrepot = creer_entrepot(Qentrepot, partie);
+
 }

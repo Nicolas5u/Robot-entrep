@@ -24,6 +24,7 @@ typedef struct coup {
 
 typedef struct partie {
     Case** entrepot;
+    Coup coup;
 } Partie;
 
 
@@ -31,11 +32,15 @@ typedef struct partie {
 
 // Fonctions du fichier Interface.c
 char* couleur_element(Element e);
-Case** creer_entrepot(int Qentrepot);
+Case** creer_entrepot(int Qentrepot, Partie* partie);
 void liberer_entrepot(Partie partie);
 void afficher_entrepot(Partie* partie);
 void Initianise_entrepot(Partie* partie, int Qentrepot);
-void PlacementInitiale1(Case** entrepot);
+void PlacementInitiale1(Case** entrepot, Partie* partie);
 void PlacementInitiale2(Case** entrepot);
+
+// Fonctions du fichier DeplacementDuRobot.c
+void deplacement(Partie* partie);
+void deplacementD(Partie* partie);
 
 #endif
