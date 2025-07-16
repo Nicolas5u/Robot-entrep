@@ -22,7 +22,7 @@ char* couleur_element(Element e) {
 
 /* Fonction pour allouer et initialiser l'entrepôt (du 10 par 10) */
 
-Case** creer_entrepot(int Qentrepot, Partie* partie){
+Case** creer_entrepot(char echap, Partie* partie){
     // On alloue l'entrepôt 10 par 10
     Case** entrepot = (Case**)malloc(NB_LIGNE * sizeof(Case*));
     if (entrepot == NULL) {
@@ -45,11 +45,9 @@ Case** creer_entrepot(int Qentrepot, Partie* partie){
             entrepot[i][j].e = caseDeChemin; // Par défaut, toutes les cases sont des cases de Chemin
         }
     }
-    if (Qentrepot == 1){
-
+    if (echap == 1){
         PlacementInitiale1(entrepot, partie);
     }else {
-        
         PlacementInitiale2(entrepot);
     }
     return entrepot;
@@ -136,7 +134,7 @@ void afficher_entrepot(Partie* partie){
     
 }
 
-void Initianise_entrepot(Partie* partie, int Qentrepot){
-    partie->entrepot = creer_entrepot(Qentrepot, partie);
+void Initianise_entrepot(Partie* partie, char echap){
+    partie->entrepot = creer_entrepot(echap, partie);
 
 }

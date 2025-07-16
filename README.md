@@ -1,6 +1,6 @@
 # Robot-entrep
 Les malheurs de l'entrepôt est un sujet proposé par Mr Saint-Bauzel 
-Ce projet possède un makefile, il suffit donc d'écrire "make" dans un terminal pour compiler le projet. Ensuite, en appellant le main nous avons un premier choix qui nous est proposé, soit d'utilisé l'entrepôt prédéfinit soit d'en créer un soit même
+Ce projet possède un makefile, il suffit donc d'écrire "make" dans un terminal pour compiler le projet. Ensuite, en appelant le main nous avons un premier choix qui nous est proposé, soit d'utilisé l'entrepôt prédéfinit en tapant 1 soit d'en créer un soit même en tapant autre chose. Pour sortir du programme il suffit d'envoyer p à n'importe quel moment.
 Le projet est composé de plusieurs fichier dont Interface qui permet de gérer l'affichage de l'entrepôt.
 Nous avons également le fichier DeplacementDuRobot.c qui s'occupe des déplacements du robot.
 

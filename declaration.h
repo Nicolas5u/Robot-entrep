@@ -32,15 +32,18 @@ typedef struct partie {
 
 // Fonctions du fichier Interface.c
 char* couleur_element(Element e);
-Case** creer_entrepot(int Qentrepot, Partie* partie);
+Case** creer_entrepot(char echap, Partie* partie);
 void liberer_entrepot(Partie partie);
 void afficher_entrepot(Partie* partie);
-void Initianise_entrepot(Partie* partie, int Qentrepot);
+void Initianise_entrepot(Partie* partie, char echap);
 void PlacementInitiale1(Case** entrepot, Partie* partie);
 void PlacementInitiale2(Case** entrepot);
 
 // Fonctions du fichier DeplacementDuRobot.c
-void deplacement(Partie* partie);
+void deplacement(Partie* partie, char* echap);
 void deplacementD(Partie* partie);
+void deplacementG(Partie* partie);
+void deplacementB(Partie* partie);
+void deplacementH(Partie* partie);
 
 #endif
