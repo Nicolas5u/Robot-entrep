@@ -65,7 +65,7 @@ void PlacementInitiale1(Case** entrepot, Partie* partie){
         partie->coup.yFrom = 3;
 
     // On place les boites                                                                                         // C'EST ARBITRAIRE
-        entrepot[8][3].e = boite;
+        entrepot[4][4].e = boite;
         entrepot[8][4].e = boite;
         entrepot[8][5].e = boite;
         entrepot[8][6].e = boite;
@@ -90,7 +90,7 @@ void PlacementInitiale2(Case** entrepot){
         entrepot[3][3].e = robot;                                                                                  // C'EST ARBITRAIRE
 
     // On place les boites                                                                                         // C'EST ARBITRAIRE
-        entrepot[8][3].e = boite;
+        entrepot[4][3].e = boite;
         entrepot[8][4].e = boite;
         entrepot[8][5].e = boite;
         entrepot[8][6].e = boite;

@@ -1,6 +1,7 @@
 #include "declaration.h"
 Partie partie;
 int Qentrepot;
+int echap;
 
 int main() {
         printf("Les malheurs de l'entrepôt\n");
@@ -8,7 +9,11 @@ int main() {
         scanf("%d",&Qentrepot);
         Initianise_entrepot(&partie, Qentrepot);
         
-        afficher_entrepot(&partie);
+        while (echap != 27 || Qentrepot != 27){
+            afficher_entrepot(&partie);
+            deplacement(&partie);
+            scanf("%d",&echap);
+        }
     
 	liberer_entrepot(partie);
 	return 0;

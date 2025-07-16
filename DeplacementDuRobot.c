@@ -50,32 +50,28 @@ void deplacementD(Partie* partie){
     Case** plateau = partie->entrepot;
     int xFrom = partie->coup.xFrom;
     int yFrom = partie->coup.yFrom;
-
-    int comptBoite = 0;
-    for (int i = xFrom+1; i < NB_LIGNE; i++){ // pour i de la position de droite du robot jusqu'au mur
-        if(plateau[i][yFrom].e == boite){
-            comptBoite++;
-        }else{
-            break;
-        }
-    }
-    plateau[xFrom + comptBoite + 1][yFrom].e = boite;
-    plateau[xFrom + 1][yFrom].e = robot;
     
+    // Vérification des limites de l'entrepôt
+    if (xFrom + 1 >= NB_LIGNE) {
+        printf("Déplacement impossible, limite de l'entrepôt\n");
+        return;
+    }
+    
+    int comptBoite = 0;
+    int i = xFrom + 1;
+    while (i < NB_LIGNE && plateau[i][yFrom].e == boite) {
+        comptBoite++;
+        i++;
+    }
+    
+    if (plateau[xFrom + comptBoite + 1][yFrom].e == caseDeChemin){
+        plateau[xFrom + comptBoite + 1][yFrom].e = boite;
+        plateau[xFrom + 1][yFrom].e = robot;
+        plateau[xFrom][yFrom].e = caseDeChemin;
+    }
 }
 
 /*
-void deplacementD(Partie* partie) {
-    Case** plateau = partie->entrepot;
-    int xFrom = partie->coup.xFrom;
-    int yFrom = partie->coup.yFrom;
-
-    // Vérification des limites de déplacement
-    if (xFrom + 1 >= NB_LIGNE) {
-        printf("Déplacement impossible : bord de la carte.\n");
-        return;
-    }
-
     // Vérifier ce qu’il y a à droite du robot
     if (plateau[xFrom + 1][yFrom].e == caseDeChemin) {
         // On déplace le robot
