@@ -48,7 +48,7 @@ Case** creer_entrepot(char echap, Partie* partie){
     if (echap == 1){
         PlacementInitiale1(entrepot, partie);
     }else {
-        PlacementInitiale2(entrepot);
+        PlacementInitiale2(entrepot, partie);
     }
     return entrepot;
 }
@@ -61,6 +61,7 @@ void PlacementInitiale1(Case** entrepot, Partie* partie){
         entrepot[3][3].e = robot;                                                                                  // C'EST ARBITRAIRE
         partie->coup.xFrom = 3;
         partie->coup.yFrom = 3;
+        printf(" 0 xFrom = %d et yFrom = %d\n",partie->coup.xFrom,partie->coup.yFrom);
 
     // On place les boites                                                                                         // C'EST ARBITRAIRE
         entrepot[4][4].e = boite;
@@ -75,12 +76,14 @@ void PlacementInitiale1(Case** entrepot, Partie* partie){
         entrepot[j][0].e = mur;
         entrepot[j][9].e = mur;
 }
+
 }
 
 /* Fonction pour placer le robot, les murs, les boites initialement si l'entrepôt est particulier  A MODIFIER*/
 
-void PlacementInitiale2(Case** entrepot){
-    printf("Quelle taille fait l'entrepôt en longueur ?");
+void PlacementInitiale2(Case** entrepot, Partie* partie){
+    PlacementInitiale1(entrepot, partie);
+    /*printf("Quelle taille fait l'entrepôt en longueur ?");
     printf("Quelle taille fait l'entrepôt en largeur ?");
     printf("A-ton des murs intérieurs ?");
     printf("A-ton des boites à l'intérieur de l'entrepôt ?");
@@ -99,7 +102,7 @@ void PlacementInitiale2(Case** entrepot){
         entrepot[9][j].e = mur;
         entrepot[j][0].e = mur;
         entrepot[j][9].e = mur;
-}
+}*/
 }
 /* Fonction pour libérer l'espace mémoire de l'entrepôt (du 10 par 10) */
 

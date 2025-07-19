@@ -37,11 +37,11 @@ void liberer_entrepot(Partie partie);
 void afficher_entrepot(Partie* partie);
 void Initianise_entrepot(Partie* partie, char echap);
 void PlacementInitiale1(Case** entrepot, Partie* partie);
-void PlacementInitiale2(Case** entrepot);
+void PlacementInitiale2(Case** entrepot, Partie* partie);
 
 // Fonctions du fichier DeplacementDuRobot.c
 void deplacement(Partie* partie, char* echap);
-void deplacementD(Partie* partie);
+void deplacementD(Case** entrepot, Partie* partie);
 void deplacementG(Partie* partie);
 void deplacementB(Partie* partie);
 void deplacementH(Partie* partie);
