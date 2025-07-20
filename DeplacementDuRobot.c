@@ -49,12 +49,6 @@ void deplacementD(Case** entrepot, Partie* partie){
     
     int comptBoite = 0;
     int i = yFrom + 1;
-    /*
-    entrepot[3][3].e = robot;                                                                                  // C'EST ARBITRAIRE
-        partie->coup.xFrom = 3;
-        partie->coup.yFrom = 3;
-        printf(" 0 xFrom = %d et yFrom = %d\n",partie->coup.xFrom,partie->coup.yFrom);
-    */
     
     printf(" 2 xFrom = %d et yFrom = %d\n",xFrom,yFrom);
     
@@ -80,7 +74,7 @@ void deplacementD(Case** entrepot, Partie* partie){
         printf(" 5 xFrom = %d et yFrom = %d\n",xFrom,yFrom);
 
     }else {
-    printf("Déplacement impossible, la boîte est bloquée\n");
+    printf("Déplacement impossible, le robot est bloquée\n");
     printf(" 6 xFrom = %d et yFrom = %d\n",xFrom,yFrom);
     }
 
@@ -112,7 +106,7 @@ void deplacementG(Partie* partie){
         partie->coup.yFrom = yFrom - 1;
 
     }else {
-    printf("Déplacement impossible, la boîte est bloquée\n");
+    printf("Déplacement impossible, le robot est bloquée\n");
     }
 
 
@@ -125,26 +119,26 @@ void deplacementB(Partie* partie){
     int yFrom = partie->coup.yFrom;
     
     int comptBoite = 0;
-    int i = yFrom + 1;
-    while (i < NB_LIGNE && plateau[xFrom][i].e == boite) {
+    int i = xFrom + 1;
+    while (i < NB_LIGNE && plateau[i][yFrom].e == boite) {
         comptBoite++;
         i++;
     }
     
     // Vérification des limites de l'entrepôt
-    if (yFrom + comptBoite + 1 >= NB_LIGNE) {
+    if (xFrom + comptBoite + 1 >= NB_LIGNE) {
         printf("Déplacement impossible, limite de l'entrepôt\n");
         return;
     }
     
-    if (plateau[xFrom][yFrom+ comptBoite + 1].e == caseDeChemin){
-        plateau[xFrom][yFrom+ comptBoite + 1].e = boite;
-        plateau[xFrom][yFrom + 1].e = robot;
+    if (plateau[xFrom + comptBoite + 1][yFrom].e == caseDeChemin){
+        plateau[xFrom + comptBoite + 1][yFrom].e = boite;
+        plateau[xFrom + 1][yFrom].e = robot;
         plateau[xFrom][yFrom].e = caseDeChemin;
-        partie->coup.yFrom = yFrom + 1;
+        partie->coup.xFrom = xFrom + 1;
 
     }else {
-    printf("Déplacement impossible, la boîte est bloquée\n");
+    printf("Déplacement impossible, le robot est bloquée\n");
     }
 
 }
@@ -156,26 +150,26 @@ void deplacementH(Partie* partie){
     int yFrom = partie->coup.yFrom;
     
     int comptBoite = 0;
-    int i = yFrom - 1;
-    while (i >=0 && plateau[xFrom][i].e == boite) {
+    int i = xFrom - 1;
+    while (i >=0 && plateau[i][yFrom].e == boite) {
         comptBoite++;
         i--;
     }
     
     // Vérification des limites de l'entrepôt
-    if (yFrom - comptBoite - 1 < 0) {
+    if (xFrom - comptBoite - 1 < 0) {
         printf("Déplacement impossible, limite de l'entrepôt\n");
         return;
     }
     
-    if (plateau[xFrom][yFrom - comptBoite - 1].e == caseDeChemin){
-        plateau[xFrom][yFrom - comptBoite - 1].e = boite;
-        plateau[xFrom][yFrom - 1].e = robot;
+    if (plateau[xFrom - comptBoite - 1][yFrom].e == caseDeChemin){
+        plateau[xFrom - comptBoite - 1][yFrom].e = boite;
+        plateau[xFrom - 1][yFrom].e = robot;
         plateau[xFrom][yFrom].e = caseDeChemin;
-        partie->coup.yFrom = yFrom - 1;
+        partie->coup.xFrom = xFrom - 1;
 
     }else {
-    printf("Déplacement impossible, la boîte est bloquée\n");
+    printf("Déplacement impossible, le robot est bloquée\n");
     }
 
 }
