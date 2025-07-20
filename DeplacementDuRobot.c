@@ -6,7 +6,43 @@ Programme qui contient les fonctions nécessaires aux déplacements du robots
 
 *************************************************** */
 
-/* Fonction qui vérifie que le robot peut se déplacer (il ne peut déplacer de mur, il peut déplacer des boites, il ne peut déplacer une boite si sa position d'arrivée est un mur) */
+
+void fichier_commandes(const char* Commande_Du_Robot, Partie* partie){
+
+    FILE* fichier = fopen(Commande_Du_Robot, "r"); // pas besoin de la déclarer la structure et ouvre le fichier en lecture
+    if (fichier == NULL) {
+        printf("Erreur à l'ouverture du fichier %s\n", Commande_Du_Robot);
+        return;
+    }
+
+    char commande;
+    while ((commande = fgetc(fichier)) != EOF) { // on la mise à jour de la commande à chaque itération, != EOF permet d'arreter lorsque le fichier est finit
+        switch (commande) {
+            case 'z': deplacement_H(partie); break;
+            case 's': deplacement_B(partie); break;
+            case 'q': deplacement_G(partie); break;
+            case 'd': deplacement_D(partie); break;
+            case '^': deplacement_H(partie); break;
+            case 'v': deplacement_B(partie); break;
+            case '<': deplacement_G(partie); break;
+            case '>': deplacement_D(partie); break;
+            case '\n':
+            case '\r':
+            case ' ':
+                break; // on ignore les espaces, sauts de ligne, retour chariot
+            default:
+                printf("Commande inconnue : %c\n", commande);
+                break;
+        }
+        afficher_entrepot(partie);
+    }
+
+    // ferme le fichier ouvert avec fopen
+    if (fclose(fichier) != 0) {
+    printf("Erreur à la fermeture du fichier.\n");
+    }
+
+}
 
 void deplacement(Partie* partie, char* echap){
     char direction;
@@ -21,19 +57,19 @@ void deplacement(Partie* partie, char* echap){
     switch (direction) {
         case 'd':
             printf("on veut déplacer le robot à droite\n");
-            deplacementD(partie->entrepot, partie);
+            deplacement_D(partie);
             break;
         case 'q':
             printf("on veut déplacer le robot à gauche\n");
-            deplacementG(partie);
+            deplacement_G(partie);
             break;
         case 'z':
             printf("on veut déplacer le robot en haut\n");
-            deplacementH(partie);
+            deplacement_H(partie);
             break;
         case 's':
             printf("on veut déplacer le robot en bas\n");
-            deplacementB(partie);
+            deplacement_B(partie);
             break;
         default:
             printf("mauvaise touche sélectionnée\n");
@@ -41,7 +77,10 @@ void deplacement(Partie* partie, char* echap){
     }
 }
 
-void deplacementD(Case** entrepot, Partie* partie){
+/* Fonction qui vérifie que le robot peut se déplacer (il ne peut déplacer de mur, il peut déplacer des boites, il ne peut déplacer une boite si sa position d'arrivée est un mur) */
+
+void deplacement_D(Partie* partie){
+    Case** plateau = partie->entrepot;
     int xFrom = partie->coup.xFrom;
     int yFrom = partie->coup.yFrom;
     
@@ -52,7 +91,7 @@ void deplacementD(Case** entrepot, Partie* partie){
     
     printf(" 2 xFrom = %d et yFrom = %d\n",xFrom,yFrom);
     
-    while (i < NB_LIGNE && entrepot[xFrom][i].e == boite) {
+    while (i < NB_LIGNE && plateau[xFrom][i].e == boite) {
         comptBoite++;
         i++;
     }
@@ -66,10 +105,10 @@ void deplacementD(Case** entrepot, Partie* partie){
         return;
     }
     
-    if (entrepot[xFrom][yFrom + comptBoite + 1].e == caseDeChemin){
-        entrepot[xFrom][yFrom + comptBoite + 1].e = boite;
-        entrepot[xFrom][yFrom+ 1].e = robot;
-        entrepot[xFrom][yFrom].e = caseDeChemin;
+    if (plateau[xFrom][yFrom + comptBoite + 1].e == caseDeChemin){
+        plateau[xFrom][yFrom + comptBoite + 1].e = boite;
+        plateau[xFrom][yFrom+ 1].e = robot;
+        plateau[xFrom][yFrom].e = caseDeChemin;
         partie->coup.yFrom = yFrom + 1;
         printf(" 5 xFrom = %d et yFrom = %d\n",xFrom,yFrom);
 
@@ -80,7 +119,7 @@ void deplacementD(Case** entrepot, Partie* partie){
 
 }
 
-void deplacementG(Partie* partie){
+void deplacement_G(Partie* partie){
 
     Case** plateau = partie->entrepot;
     int xFrom = partie->coup.xFrom;
@@ -112,7 +151,7 @@ void deplacementG(Partie* partie){
 
 }
 
-void deplacementB(Partie* partie){
+void deplacement_B(Partie* partie){
 
     Case** plateau = partie->entrepot;
     int xFrom = partie->coup.xFrom;
@@ -143,7 +182,7 @@ void deplacementB(Partie* partie){
 
 }
 
-void deplacementH(Partie* partie){
+void deplacement_H(Partie* partie){
 
     Case** plateau = partie->entrepot;
     int xFrom = partie->coup.xFrom;

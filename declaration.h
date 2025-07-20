@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#define NB_LIGNE 10
+#define NB_LIGNE 8
 
 // Définition des structures
 typedef enum element { 
@@ -18,8 +18,6 @@ typedef struct Case {
 typedef struct coup {
     int xFrom;
     int yFrom;
-    int xTo;
-    int yTo;
 } Coup;
 
 typedef struct partie {
@@ -40,10 +38,11 @@ void PlacementInitiale1(Case** entrepot, Partie* partie);
 void PlacementInitiale2(Case** entrepot, Partie* partie);
 
 // Fonctions du fichier DeplacementDuRobot.c
+void fichier_commandes(const char* Commande_Du_Robot, Partie* partie);
 void deplacement(Partie* partie, char* echap);
-void deplacementD(Case** entrepot, Partie* partie);
-void deplacementG(Partie* partie);
-void deplacementB(Partie* partie);
-void deplacementH(Partie* partie);
+void deplacement_D(Partie* partie);
+void deplacement_G(Partie* partie);
+void deplacement_B(Partie* partie);
+void deplacement_H(Partie* partie);
 
 #endif
