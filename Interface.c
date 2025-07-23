@@ -46,9 +46,10 @@ Case** creer_entrepot(char echap, Partie* partie){
         }
     }
     if (echap == 'o'){
-        printf("entrepôt prédéfinit\n");
+        printf("petit entrepôt prédéfini\n");
         PlacementInitiale1(entrepot, partie);
     }else {
+        printf("plus grand entrepôt\n");
         PlacementInitiale2(entrepot, partie);
     }
     return entrepot;
@@ -87,28 +88,39 @@ void PlacementInitiale1(Case** entrepot, Partie* partie){
 /* Fonction pour placer le robot, les murs, les boites initialement si l'entrepôt est particulier  A MODIFIER*/
 
 void PlacementInitiale2(Case** entrepot, Partie* partie){
+    printf("pas encore utilisable\n");
     PlacementInitiale1(entrepot, partie);
-    /*printf("Quelle taille fait l'entrepôt en longueur ?");
-    printf("Quelle taille fait l'entrepôt en largeur ?");
-    printf("A-ton des murs intérieurs ?");
-    printf("A-ton des boites à l'intérieur de l'entrepôt ?");
+    printf("petit entrepôt prédéfini\n");
+    
+    /*
+    int NB_LIGNE_G = NB_LIGNE + 2;
     // On place le robot
-        entrepot[3][3].e = robot;                                                                                  // C'EST ARBITRAIRE
+        entrepot[2][2].e = robot;                                                                                  // C'EST ARBITRAIRE
+        partie->coup.xFrom = 2;
+        partie->coup.yFrom = 2;
+        printf(" 0 xFrom = %d et yFrom = %d\n",partie->coup.xFrom,partie->coup.yFrom);
 
     // On place les boites                                                                                         // C'EST ARBITRAIRE
-        entrepot[4][3].e = boite;
-        entrepot[8][4].e = boite;
-        entrepot[8][5].e = boite;
-        entrepot[8][6].e = boite;
+        entrepot[1][3].e = boite;
+        entrepot[1][5].e = boite;
+        entrepot[2][4].e = boite;
+        entrepot[3][4].e = boite;
+        entrepot[4][4].e = boite;
+        entrepot[5][4].e = boite;
         
     // On place les murs
-    for (int j = 0; j < NB_LIGNE; j++) {
+    for (int j = 0; j < NB_LIGNE_G; j++) {
         entrepot[0][j].e = mur;
-        entrepot[9][j].e = mur;
+        entrepot[NB_LIGNE_G - 1][j].e = mur;
         entrepot[j][0].e = mur;
-        entrepot[j][9].e = mur;
-}*/
+        entrepot[j][NB_LIGNE_G - 1].e = mur;
+    }
+    entrepot[2][1].e = mur;
+    entrepot[4][2].e = mur;
+    */
 }
+
+
 /* Fonction pour libérer l'espace mémoire de l'entrepôt (du 10 par 10) */
 
 void liberer_entrepot(Partie partie){

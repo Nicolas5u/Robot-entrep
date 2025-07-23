@@ -4,7 +4,7 @@ char echap;
 
 int main() {
         printf("Les malheurs de l'entrepôt\n");
-        printf("Dans quel entrepôt le robot pose t'il des problèmes ? (taper 'o' pour l'entrepôt prédéfini, l'autre version n'est pas encore disponible");
+        printf("Dans quel entrepôt le robot pose t'il des problèmes ?\n(taper 'o' pour le petit entrepôt prédéfini,\n taper 'i' pour le plus grand entrepôt");
         scanf(" %c",&echap);
         Initianise_entrepot(&partie, echap);
         
@@ -19,7 +19,7 @@ int main() {
                 deplacement(&partie, &echap);
             }
         }
-    
+        printf("Somme des coordonnées GPS de toutes les boîtes : %d\n", Somme(partie));
 	liberer_entrepot(partie);
 	return 0;
 }

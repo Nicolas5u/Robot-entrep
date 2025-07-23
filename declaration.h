@@ -45,4 +45,8 @@ void deplacement_G(Partie* partie);
 void deplacement_B(Partie* partie);
 void deplacement_H(Partie* partie);
 
+// Fonctions du fichier Calcul_Score.c
+int Somme(Partie partie);
+
+
 #endif

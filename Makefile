@@ -1,7 +1,7 @@
 TARGET = main
 CC = gcc
 CFLAGS = -Wall -Wextra -std=c11
-SRC = main.c Interface.c DeplacementDuRobot.c
+SRC = main.c Interface.c DeplacementDuRobot.c Calcul_Score.c
 OBJ = $(SRC:.c=.o)
 
 all: $(TARGET)
