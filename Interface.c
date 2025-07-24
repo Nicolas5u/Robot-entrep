@@ -49,7 +49,7 @@ Case** creer_entrepot(char echap, Partie* partie){
         printf("petit entrepôt prédéfini\n");
         PlacementInitiale1(entrepot, partie);
     }else {
-        printf("plus grand entrepôt\n");
+        printf("fenêtre d'affichage\n");
         PlacementInitiale2(entrepot, partie);
     }
     return entrepot;
@@ -89,35 +89,8 @@ void PlacementInitiale1(Case** entrepot, Partie* partie){
 
 void PlacementInitiale2(Case** entrepot, Partie* partie){
     printf("pas encore utilisable\n");
-    PlacementInitiale1(entrepot, partie);
     printf("petit entrepôt prédéfini\n");
-    
-    /*
-    int NB_LIGNE_G = NB_LIGNE + 2;
-    // On place le robot
-        entrepot[2][2].e = robot;                                                                                  // C'EST ARBITRAIRE
-        partie->coup.xFrom = 2;
-        partie->coup.yFrom = 2;
-        printf(" 0 xFrom = %d et yFrom = %d\n",partie->coup.xFrom,partie->coup.yFrom);
-
-    // On place les boites                                                                                         // C'EST ARBITRAIRE
-        entrepot[1][3].e = boite;
-        entrepot[1][5].e = boite;
-        entrepot[2][4].e = boite;
-        entrepot[3][4].e = boite;
-        entrepot[4][4].e = boite;
-        entrepot[5][4].e = boite;
-        
-    // On place les murs
-    for (int j = 0; j < NB_LIGNE_G; j++) {
-        entrepot[0][j].e = mur;
-        entrepot[NB_LIGNE_G - 1][j].e = mur;
-        entrepot[j][0].e = mur;
-        entrepot[j][NB_LIGNE_G - 1].e = mur;
-    }
-    entrepot[2][1].e = mur;
-    entrepot[4][2].e = mur;
-    */
+    PlacementInitiale1(entrepot, partie);
 }
 
 
@@ -155,6 +128,9 @@ void afficher_entrepot(Partie* partie){
 }
 
 void Initianise_entrepot(Partie* partie, char echap){
-    partie->entrepot = creer_entrepot(echap, partie);
-
+    if (echap == 'o'){
+        partie->entrepot = creer_entrepot(echap, partie);
+    }else{
+        affichage();
+    }
 }

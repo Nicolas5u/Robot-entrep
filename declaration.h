@@ -3,8 +3,10 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <SDL2/SDL.h>
 
 #define NB_LIGNE 8
+
 
 // Définition des structures
 typedef enum element { 
@@ -47,6 +49,9 @@ void deplacement_H(Partie* partie);
 
 // Fonctions du fichier Calcul_Score.c
 int Somme(Partie partie);
+
+// Fonctions du fichier SDL2_pour_affichage.c
+int affichage();
 
 
 #endif

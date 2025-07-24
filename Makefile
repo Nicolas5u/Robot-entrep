@@ -1,7 +1,7 @@
 TARGET = main
 CC = gcc
 CFLAGS = -Wall -Wextra -std=c11
-SRC = main.c Interface.c DeplacementDuRobot.c Calcul_Score.c
+SRC = main.c Interface.c DeplacementDuRobot.c Calcul_Score.c SDL2_pour_affichage.c
 OBJ = $(SRC:.c=.o)
 LIBS = -lSDL2
 

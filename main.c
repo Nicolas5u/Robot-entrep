@@ -3,23 +3,30 @@ Partie partie;
 char echap;
 
 int main() {
-        printf("Les malheurs de l'entrepôt\n");
-        printf("Dans quel entrepôt le robot pose t'il des problèmes ?\n(taper 'o' pour le petit entrepôt prédéfini,\n taper 'i' pour le plus grand entrepôt");
+        printf("Les malheurs de l'entrepôt :\n");
+        printf("Quel affichage de l'entrepôt ?\n taper 'o' pour l'entrepôt sur le terminal avec le fichier commande,\n taper 'u' pour l'entrepôt sur le terminal avec le déplacement du robot zqsd,\n taper 'i' pour la fenêtre d'affichage graphique,\n selectionner 'p' pour sortir.\n");
         scanf(" %c",&echap);
-        Initianise_entrepot(&partie, echap);
         
-        int mode;
-        printf("Utiliser fichier commande ? (oui : 1, non : 2)");
-        scanf(" %d", &mode);
-        if(mode == 1){
+        if (echap == 'o'){
+            partie.entrepot = creer_entrepot(echap, &partie);
             fichier_commandes("Commande_Du_Robot.txt", &partie);
-        }else{
+        }
+        if (echap == 'u'){
+            partie.entrepot = creer_entrepot(echap, &partie);
             while (echap != 'p'){
                 afficher_entrepot(&partie);
                 deplacement(&partie, &echap);
             }
+            echap = 'u';
         }
-        printf("Somme des coordonnées GPS de toutes les boîtes : %d\n", Somme(partie));
-	liberer_entrepot(partie);
+        if (echap == 'u' ||echap == 'o'){
+            printf("Somme des coordonnées GPS de toutes les boîtes : %d\n", Somme(partie));
+            liberer_entrepot(partie);
+        }
+        if (echap == 'i'){
+            affichage();
+        }
+        
+        
 	return 0;
 }
