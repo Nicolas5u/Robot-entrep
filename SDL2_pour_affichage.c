@@ -1,12 +1,22 @@
 #include "declaration.h"
 
+/** Largeur de la fenêtre SDL */
 const int SCREEN_WIDTH = 800;
+/** Hauteur de la fenêtre SDL */
 const int SCREEN_HEIGHT = 600;
+/** Taille (en pixels) d'une cellule de l'entrepôt */
 const int CELL_SIZE = 60;
 
+/**
+ * @brief Lance l'affichage graphique SDL avec contrôle du robot au clavier (z,q,s,d).
+ * 
+ * Initialise SDL, crée la fenêtre et le renderer, puis boucle sur les événements clavier
+ * pour déplacer le robot. Affiche en continu l'entrepôt.
+ * 
+ * @param partie Pointeur vers la structure Partie contenant l'état de l'entrepôt.
+ * @return int 0 si succès, 1 en cas d'erreur SDL.
+ */
 int affichage(Partie* partie) {
-
-// Début de l'initialisation de la fenêtre graphique  
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
         printf("Erreur SDL : %s\n", SDL_GetError());
         return 1;
@@ -29,10 +39,7 @@ int affichage(Partie* partie) {
         SDL_Quit();
         return 1;
     }
-    
-// Fin de l'initialisation de la fenêtre graphique 
 
-// Gestion des événements clavier avec boucle de sorti
     int quit = 0;
     SDL_Event event;
 
@@ -43,8 +50,6 @@ int affichage(Partie* partie) {
             } else if (event.type == SDL_KEYDOWN) {
                 switch (event.key.keysym.sym) {
                     case SDL_QUIT:
-                        quit = 1;
-                        break;
                     case SDLK_ESCAPE:
                         quit = 1;
                         break;
@@ -64,29 +69,28 @@ int affichage(Partie* partie) {
             }
         }
 
-        // Affiche l'entrepôt
-        SDL2_Affiche_entrepot(renderer,partie);
-
-        // On affiche le résultat à l'écran
+        SDL2_Affiche_entrepot(renderer, partie);
         SDL_RenderPresent(renderer);
-        
-        // Délai entre chaque commande (en mettant 16 on a 60 images par seconde)
         SDL_Delay(16);
-        
     }
 
-    // On ferme proprement l'interface
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
     return 0;
 }
 
-// Fonction qui permet d'utiliser le ficher commande en txt
-
+/**
+ * @brief Exécute les commandes de déplacement depuis un fichier texte et affiche graphiquement.
+ * 
+ * Ouvre le fichier de commandes, lit caractère par caractère, exécute les déplacements,
+ * affiche l'entrepôt après chaque commande avec un délai.
+ * 
+ * @param Commande_Du_Robot Nom du fichier texte contenant les commandes (z,q,s,d).
+ * @param partie Pointeur vers la structure Partie contenant l'état de l'entrepôt.
+ * @return int 0 si succès, 1 en cas d'erreur SDL ou fichier.
+ */
 int SDL2_fichier_commandes(const char* Commande_Du_Robot, Partie* partie) {
-
-// Début de l'initialisation de la fenêtre graphique
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
         printf("Erreur SDL : %s\n", SDL_GetError());
         return 1;
@@ -109,9 +113,7 @@ int SDL2_fichier_commandes(const char* Commande_Du_Robot, Partie* partie) {
         SDL_Quit();
         return 1;
     }
-// Fin de l'initialisation de la fenêtre graphique 
 
-// Début du copier coller de la fonction fichier_commandes
     FILE* fichier = fopen(Commande_Du_Robot, "r");
     if (!fichier) {
         printf("Erreur à l'ouverture du fichier %s\n", Commande_Du_Robot);
@@ -134,26 +136,17 @@ int SDL2_fichier_commandes(const char* Commande_Du_Robot, Partie* partie) {
             case '>': deplacement_D(partie); break;
             case ' ':
             case '\n':
-            case '\r': 
-                break; // ignorer les blancs et sauts de ligne
-                
+            case '\r': break; // Ignorer espaces et sauts de ligne
             default:
                 printf("Commande inconnue : %c\n", commande);
                 break;
         }
-// Fin du copier coller de la fonction fichier_commandes
 
-        // Affiche l'entrepôt
-        SDL2_Affiche_entrepot(renderer,partie);
-
-        // On affiche le résultat à l'écran
+        SDL2_Affiche_entrepot(renderer, partie);
         SDL_RenderPresent(renderer);
-        
-        // Délai entre chaque commande
         SDL_Delay(300);
     }
-    
-// On ferme proprement l'interface
+
     fclose(fichier);
     SDL_Delay(1000);
     SDL_DestroyRenderer(renderer);
@@ -162,43 +155,49 @@ int SDL2_fichier_commandes(const char* Commande_Du_Robot, Partie* partie) {
     return 0;
 }
 
-void SDL2_Affiche_entrepot(SDL_Renderer* renderer,Partie* partie){
-    
-    
-    // Efface l'écran pour ne pas avoir des fenêtres qui s'accumulent
-        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-        SDL_RenderClear(renderer);
+/**
+ * @brief Affiche graphiquement l'entrepôt dans la fenêtre SDL.
+ * 
+ * Dessine chaque case avec une couleur en fonction de son type (mur, robot, boite, chemin).
+ * 
+ * @param renderer Le renderer SDL utilisé pour dessiner.
+ * @param partie Pointeur vers la structure Partie contenant l'état de l'entrepôt.
+ */
+void SDL2_Affiche_entrepot(SDL_Renderer* renderer, Partie* partie) {
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+    SDL_RenderClear(renderer);
 
     for (int row = 0; row < NB_LIGNE; row++) {
-            for (int col = 0; col < NB_LIGNE; col++) {
-                SDL_Rect cell = {
-                    col * CELL_SIZE,
-                    row * CELL_SIZE,
-                    CELL_SIZE,
-                    CELL_SIZE
-                };
+        for (int col = 0; col < NB_LIGNE; col++) {
+            SDL_Rect cell = {
+                col * CELL_SIZE,
+                row * CELL_SIZE,
+                CELL_SIZE,
+                CELL_SIZE
+            };
 
-                switch (partie->entrepot[row][col].e) {
-                    case mur:
-                        SDL_SetRenderDrawColor(renderer, 50, 50, 50, 255); // gris foncé
-                        break;
-                    case robot:
-                        SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255); // rouge
-                        break;
-                    case boite:
-                        SDL_SetRenderDrawColor(renderer, 139, 69, 19, 255); // marron
-                        break;
-                    case caseDeChemin:
-                        SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255); // blanc
-                        break;
-                    default:
-                        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255); // noir
-                        break;
-                }
-
-                SDL_RenderFillRect(renderer, &cell);
-                SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-                SDL_RenderDrawRect(renderer, &cell);
+            switch (partie->entrepot[row][col].e) {
+                case mur:
+                    SDL_SetRenderDrawColor(renderer, 50, 50, 50, 255); // gris foncé
+                    break;
+                case robot:
+                    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255); // rouge
+                    break;
+                case boite:
+                    SDL_SetRenderDrawColor(renderer, 139, 69, 19, 255); // marron
+                    break;
+                case caseDeChemin:
+                    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255); // blanc
+                    break;
+                default:
+                    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255); // noir
+                    break;
             }
+
+            SDL_RenderFillRect(renderer, &cell);
+            SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+            SDL_RenderDrawRect(renderer, &cell);
         }
+    }
 }
+

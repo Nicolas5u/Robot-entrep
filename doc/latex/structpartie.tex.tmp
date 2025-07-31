@@ -1,0 +1,20 @@
+\doxysection{Référence de la structure partie}
+\hypertarget{structpartie}{}\label{structpartie}\index{partie@{partie}}
+
+
+Graphe de collaboration de partie\+:
+% FIG 0
+\doxysubsubsection*{Attributs publics}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structpartie_ad997d67a583e727b0e28330b8acd11fc}\label{structpartie_ad997d67a583e727b0e28330b8acd11fc} 
+\mbox{\hyperlink{structCase}{Case}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} {\bfseries entrepot}
+\item 
+\Hypertarget{structpartie_a7f2c6ce70fb4154887f78ab0bbd72bee}\label{structpartie_a7f2c6ce70fb4154887f78ab0bbd72bee} 
+\mbox{\hyperlink{structcoup}{Coup}} {\bfseries coup}
+\end{DoxyCompactItemize}
+
+
+La documentation de cette structure a été générée à partir du fichier suivant \+:\begin{DoxyCompactItemize}
+\item 
+declaration.\+h\end{DoxyCompactItemize}

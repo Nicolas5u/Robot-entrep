@@ -1,0 +1,62 @@
+\doxysection{declaration.\+h}
+\hypertarget{declaration_8h_source}{}\label{declaration_8h_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ DECLARATION\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ DECLARATION\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <stdlib.h>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <stdio.h>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <SDL2/SDL.h>}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#define\ NB\_LIGNE\ 8}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{comment}{//\ Définition\ des\ structures}}
+\DoxyCodeLine{00012\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ element\ \{\ }
+\DoxyCodeLine{00013\ \ \ \ \ vide,\ robot,\ mur,\ boite,\ caseDeChemin\ }
+\DoxyCodeLine{00014\ \}\ Element;}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structCase}{Case}}\ \{}
+\DoxyCodeLine{00017\ \ \ \ \ Element\ e;}
+\DoxyCodeLine{00018\ \}\ \mbox{\hyperlink{structCase}{Case}};}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structcoup}{coup}}\ \{}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordtype}{int}\ xFrom;}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordtype}{int}\ yFrom;}
+\DoxyCodeLine{00023\ \}\ \mbox{\hyperlink{structcoup}{Coup}};}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structpartie}{partie}}\ \{}
+\DoxyCodeLine{00026\ \ \ \ \ \mbox{\hyperlink{structCase}{Case}}**\ entrepot;}
+\DoxyCodeLine{00027\ \ \ \ \ \mbox{\hyperlink{structcoup}{Coup}}\ \mbox{\hyperlink{structcoup}{coup}};}
+\DoxyCodeLine{00028\ \}\ \mbox{\hyperlink{structpartie}{Partie}};}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{comment}{/*\ Définitions\ de\ toutes\ les\ fonctions\ */}}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ Fonctions\ du\ fichier\ Interface.c}}
+\DoxyCodeLine{00034\ \textcolor{keywordtype}{char}*\ couleur\_element(Element\ e);}
+\DoxyCodeLine{00035\ \mbox{\hyperlink{structCase}{Case}}**\ creer\_entrepot(\mbox{\hyperlink{structpartie}{Partie}}*\ \mbox{\hyperlink{structpartie}{partie}});}
+\DoxyCodeLine{00036\ \textcolor{keywordtype}{void}\ liberer\_entrepot(\mbox{\hyperlink{structpartie}{Partie}}\ \mbox{\hyperlink{structpartie}{partie}});}
+\DoxyCodeLine{00037\ \textcolor{keywordtype}{void}\ afficher\_entrepot(\mbox{\hyperlink{structpartie}{Partie}}*\ \mbox{\hyperlink{structpartie}{partie}});}
+\DoxyCodeLine{00038\ \textcolor{keywordtype}{void}\ PlacementInitiale1(\mbox{\hyperlink{structCase}{Case}}**\ entrepot,\ \mbox{\hyperlink{structpartie}{Partie}}*\ \mbox{\hyperlink{structpartie}{partie}});}
+\DoxyCodeLine{00039\ \textcolor{keywordtype}{void}\ PlacementInitiale2(\mbox{\hyperlink{structCase}{Case}}**\ entrepot,\ \mbox{\hyperlink{structpartie}{Partie}}*\ \mbox{\hyperlink{structpartie}{partie}});}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{comment}{//\ Fonctions\ du\ fichier\ DeplacementDuRobot.c}}
+\DoxyCodeLine{00042\ \textcolor{keywordtype}{void}\ fichier\_commandes(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ Commande\_Du\_Robot,\ \mbox{\hyperlink{structpartie}{Partie}}*\ \mbox{\hyperlink{structpartie}{partie}});}
+\DoxyCodeLine{00043\ \textcolor{keywordtype}{void}\ deplacement(\mbox{\hyperlink{structpartie}{Partie}}*\ \mbox{\hyperlink{structpartie}{partie}},\ \textcolor{keywordtype}{char}*\ echap);}
+\DoxyCodeLine{00044\ \textcolor{keywordtype}{void}\ deplacement\_D(\mbox{\hyperlink{structpartie}{Partie}}*\ \mbox{\hyperlink{structpartie}{partie}});}
+\DoxyCodeLine{00045\ \textcolor{keywordtype}{void}\ deplacement\_G(\mbox{\hyperlink{structpartie}{Partie}}*\ \mbox{\hyperlink{structpartie}{partie}});}
+\DoxyCodeLine{00046\ \textcolor{keywordtype}{void}\ deplacement\_B(\mbox{\hyperlink{structpartie}{Partie}}*\ \mbox{\hyperlink{structpartie}{partie}});}
+\DoxyCodeLine{00047\ \textcolor{keywordtype}{void}\ deplacement\_H(\mbox{\hyperlink{structpartie}{Partie}}*\ \mbox{\hyperlink{structpartie}{partie}});}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{comment}{//\ Fonctions\ du\ fichier\ Calcul\_Score.c}}
+\DoxyCodeLine{00050\ \textcolor{keywordtype}{int}\ Somme(\mbox{\hyperlink{structpartie}{Partie}}\ \mbox{\hyperlink{structpartie}{partie}});}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{comment}{//\ Fonctions\ du\ fichier\ SDL2\_pour\_affichage.c}}
+\DoxyCodeLine{00053\ \textcolor{keywordtype}{int}\ affichage(\mbox{\hyperlink{structpartie}{Partie}}*\ \mbox{\hyperlink{structpartie}{partie}});}
+\DoxyCodeLine{00054\ \textcolor{keywordtype}{int}\ SDL2\_fichier\_commandes(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ Commande\_Du\_Robot,\ \mbox{\hyperlink{structpartie}{Partie}}*\ \mbox{\hyperlink{structpartie}{partie}});}
+\DoxyCodeLine{00055\ \textcolor{keywordtype}{void}\ SDL2\_Affiche\_entrepot(SDL\_Renderer*\ renderer,\mbox{\hyperlink{structpartie}{Partie}}*\ \mbox{\hyperlink{structpartie}{partie}});}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}
