@@ -32,10 +32,9 @@ typedef struct partie {
 
 // Fonctions du fichier Interface.c
 char* couleur_element(Element e);
-Case** creer_entrepot(char echap, Partie* partie);
+Case** creer_entrepot(Partie* partie);
 void liberer_entrepot(Partie partie);
 void afficher_entrepot(Partie* partie);
-void Initianise_entrepot(Partie* partie, char echap);
 void PlacementInitiale1(Case** entrepot, Partie* partie);
 void PlacementInitiale2(Case** entrepot, Partie* partie);
 
@@ -51,7 +50,8 @@ void deplacement_H(Partie* partie);
 int Somme(Partie partie);
 
 // Fonctions du fichier SDL2_pour_affichage.c
-int affichage();
-
+int affichage(Partie* partie);
+int SDL2_fichier_commandes(const char* Commande_Du_Robot, Partie* partie);
+void SDL2_Affiche_entrepot(SDL_Renderer* renderer,Partie* partie);
 
 #endif

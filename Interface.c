@@ -20,10 +20,10 @@ char* couleur_element(Element e) {
 }
 
 
-/* Fonction pour allouer et initialiser l'entrepôt (du 10 par 10) */
+/* Fonction pour allouer et initialiser l'entrepôt */
 
-Case** creer_entrepot(char echap, Partie* partie){
-    // On alloue l'entrepôt 10 par 10
+Case** creer_entrepot(Partie* partie){
+    // On alloue l'entrepôt
     Case** entrepot = (Case**)malloc(NB_LIGNE * sizeof(Case*));
     if (entrepot == NULL) {
         printf("Erreur dans l'allocation mémoire pour l'entrepôt\n");
@@ -45,13 +45,11 @@ Case** creer_entrepot(char echap, Partie* partie){
             entrepot[i][j].e = caseDeChemin; // Par défaut, toutes les cases sont des cases de Chemin
         }
     }
-    if (echap == 'o'){
-        printf("petit entrepôt prédéfini\n");
-        PlacementInitiale1(entrepot, partie);
-    }else {
-        printf("fenêtre d'affichage\n");
-        PlacementInitiale2(entrepot, partie);
-    }
+    
+    // On initialise les positions des murs, objets et robot
+    printf("petit entrepôt prédéfini\n");
+    PlacementInitiale1(entrepot, partie);
+    
     return entrepot;
 }
 
@@ -63,7 +61,6 @@ void PlacementInitiale1(Case** entrepot, Partie* partie){
         entrepot[2][2].e = robot;                                                                                  // C'EST ARBITRAIRE
         partie->coup.xFrom = 2;
         partie->coup.yFrom = 2;
-        printf(" 0 xFrom = %d et yFrom = %d\n",partie->coup.xFrom,partie->coup.yFrom);
 
     // On place les boites                                                                                         // C'EST ARBITRAIRE
         entrepot[1][3].e = boite;
@@ -82,19 +79,9 @@ void PlacementInitiale1(Case** entrepot, Partie* partie){
     }
     entrepot[2][1].e = mur;
     entrepot[4][2].e = mur;
-
 }
 
-/* Fonction pour placer le robot, les murs, les boites initialement si l'entrepôt est particulier  A MODIFIER*/
-
-void PlacementInitiale2(Case** entrepot, Partie* partie){
-    printf("pas encore utilisable\n");
-    printf("petit entrepôt prédéfini\n");
-    PlacementInitiale1(entrepot, partie);
-}
-
-
-/* Fonction pour libérer l'espace mémoire de l'entrepôt (du 10 par 10) */
+/* Fonction pour libérer l'espace mémoire de l'entrepôt */
 
 void liberer_entrepot(Partie partie){
     Case **plateau = partie.entrepot;
@@ -123,14 +110,5 @@ void afficher_entrepot(Partie* partie){
             printf("\033[0m");
         }
         printf("\n");
-    }
-    
-}
-
-void Initianise_entrepot(Partie* partie, char echap){
-    if (echap == 'o'){
-        partie->entrepot = creer_entrepot(echap, partie);
-    }else{
-        affichage();
-    }
+    }   
 }

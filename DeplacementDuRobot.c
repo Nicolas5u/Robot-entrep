@@ -9,27 +9,27 @@ Programme qui contient les fonctions nécessaires aux déplacements du robots
 
 void fichier_commandes(const char* Commande_Du_Robot, Partie* partie){
 
-    FILE* fichier = fopen(Commande_Du_Robot, "r"); // pas besoin de la déclarer la structure et ouvre le fichier en lecture
+    FILE* fichier = fopen(Commande_Du_Robot, "r"); // pas besoin de déclarer la structure et ouvre le fichier en lecture
     if (fichier == NULL) {
         printf("Erreur à l'ouverture du fichier %s\n", Commande_Du_Robot);
         return;
     }
 
     char commande;
-    while ((commande = fgetc(fichier)) != EOF) { // on la mise à jour de la commande à chaque itération, != EOF permet d'arreter lorsque le fichier est finit
+    while ((commande = fgetc(fichier)) != EOF) { // mise à jour de la commande à chaque itération, != EOF permet d'arrêter lorsque le fichier est fini
         switch (commande) {
-            case 'z': deplacement_H(partie); break;
-            case 's': deplacement_B(partie); break;
-            case 'q': deplacement_G(partie); break;
-            case 'd': deplacement_D(partie); break;
+            case 'z':
             case '^': deplacement_H(partie); break;
+            case 's':
             case 'v': deplacement_B(partie); break;
+            case 'q':
             case '<': deplacement_G(partie); break;
+            case 'd':
             case '>': deplacement_D(partie); break;
-            case '\n':
-            case '\r':
             case ' ':
-                break; // on ignore les espaces, sauts de ligne, retour chariot
+            case '\n':
+            case '\r': 
+                break; // ignorer les blancs et sauts de ligne
             default:
                 printf("Commande inconnue : %c\n", commande);
                 break;
@@ -45,14 +45,12 @@ void fichier_commandes(const char* Commande_Du_Robot, Partie* partie){
 }
 
 void deplacement(Partie* partie, char* echap){
+
     char direction;
     printf("dans quelle direction va se déplacer le robot ?");
     scanf(" %c", &direction);
-    /* méthode pour récupérer la valeur du échap                                                   marche pas et je ne sais pas comment faire 
-    direction = getchar(); // Récupère l'entier (code ASCII)
-    while (getchar() != '\n'); // vide le buffer (important sinon on lit des caractères résiduels)
-    */
     *echap = direction;
+    
     if (*echap == 'p') return;
     switch (direction) {
         case 'd':
@@ -111,6 +109,8 @@ void deplacement_D(Partie* partie){
 
 }
 
+/* Fonction qui vérifie que le robot peut se déplacer (il ne peut déplacer de mur, il peut déplacer des boites, il ne peut déplacer une boite si sa position d'arrivée est un mur) */
+
 void deplacement_G(Partie* partie){
 
     Case** plateau = partie->entrepot;
@@ -143,6 +143,8 @@ void deplacement_G(Partie* partie){
 
 }
 
+/* Fonction qui vérifie que le robot peut se déplacer (il ne peut déplacer de mur, il peut déplacer des boites, il ne peut déplacer une boite si sa position d'arrivée est un mur) */
+
 void deplacement_B(Partie* partie){
 
     Case** plateau = partie->entrepot;
@@ -173,6 +175,8 @@ void deplacement_B(Partie* partie){
     }
 
 }
+
+/* Fonction qui vérifie que le robot peut se déplacer (il ne peut déplacer de mur, il peut déplacer des boites, il ne peut déplacer une boite si sa position d'arrivée est un mur) */
 
 void deplacement_H(Partie* partie){
 
