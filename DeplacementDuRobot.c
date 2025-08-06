@@ -150,4 +150,5 @@ void deplacement_H(Partie* partie){
     } else {
         printf("Déplacement impossible, le robot est bloqué\n");
     }
+    
 }
