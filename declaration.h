@@ -5,26 +5,26 @@
 #include <stdio.h>
 #include <SDL2/SDL.h>
 
-#define NB_LIGNE 8
-
 
 // Définition des structures
-typedef enum element { 
+typedef enum { 
     vide, robot, mur, boite, caseDeChemin 
 } Element;
 
-typedef struct Case {
+typedef struct {
     Element e;
 } Case;
 
-typedef struct coup {
+typedef struct {
     int xFrom;
     int yFrom;
 } Coup;
 
-typedef struct partie {
+typedef struct {
     Case** entrepot;
     Coup coup;
+    int largeur;
+    int hauteur;
 } Partie;
 
 
@@ -32,26 +32,30 @@ typedef struct partie {
 
 // Fonctions du fichier Interface.c
 char* couleur_element(Element e);
-Case** creer_entrepot(Partie* partie);
-void liberer_entrepot(Partie partie);
+Case** creer_entrepot(Partie* partie,int tailleC,int tailleL);
+void liberer_entrepot(Partie partie,int tailleL);
 void afficher_entrepot(Partie* partie);
-void PlacementInitiale1(Case** entrepot, Partie* partie);
+void PlacementInitiale1(Case** entrepot, Partie* partie,int tailleC,int tailleL);
 void PlacementInitiale2(Case** entrepot, Partie* partie);
 
 // Fonctions du fichier DeplacementDuRobot.c
-void fichier_commandes(const char* Commande_Du_Robot, Partie* partie);
-void deplacement(Partie* partie, char* echap);
-void deplacement_D(Partie* partie);
+void deplacement(Partie* partie, char* echap, int tailleL, int tailleC);
+void deplacement_D(Partie* partie, int tailleL);
 void deplacement_G(Partie* partie);
-void deplacement_B(Partie* partie);
+void deplacement_B(Partie* partie, int tailleC);
 void deplacement_H(Partie* partie);
 
 // Fonctions du fichier Calcul_Score.c
 int Somme(Partie partie);
 
 // Fonctions du fichier SDL2_pour_affichage.c
-int affichage(Partie* partie);
-int SDL2_fichier_commandes(const char* Commande_Du_Robot, Partie* partie);
-void SDL2_Affiche_entrepot(SDL_Renderer* renderer,Partie* partie);
+int affichage(Partie* partie, int tailleL, int tailleC);
+int SDL2_fichier_commandes(const char* Commande_Du_Robot, Partie* partie, int tailleL, int tailleC);
+void SDL2_Affiche_entrepot(SDL_Renderer* renderer,Partie* partie, int tailleL, int tailleC);
+
+// Fonctions du fichier Fichier_commande
+void fichier_commandes(const char* Commande_Du_Robot, Partie* partie, int tailleL, int tailleC);
+void determiner_dimensions(const char* commandeProf,Partie* partie);
+Case** cree_et_initialisation_fichier(const char* Commande_Du_Robot, Partie* partie);
 
 #endif

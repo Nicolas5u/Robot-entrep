@@ -1,0 +1,184 @@
+Examen de rattrapage : Les malheurs de l'entrepôt
+Conditions d’achèvement
+Etape 3 : Evolution
+
+Les gnomes utilisent vos informations pour trouver un moment sûr pour marcher et éteindre le robot défectueux ! Alors qu'ils commencent à préparer un festival en ton honneur, des rapports commencent à arriver indiquant que le robot d'un _deuxième_ entrepôt est _aussi_ en panne.
+
+La disposition de cet entrepôt est étonnamment similaire à celle de l'entrepôt que vous venez d'aider. Il y a une différence essentielle : tout, sauf le robot, est deux fois plus large ! La liste des mouvements du robot ne change pas.
+
+Pour obtenir la carte de l'entrepôt le plus large, commencez par votre carte originale et, pour chaque tuile, effectuez les changements suivants :
+- Si la tuile est `#`, la nouvelle carte contient `##` à la place.
+- Si la tuile est `O`, la nouvelle carte contient `[]` à la place (en pixel on peux envisager un losange avec moitié gauche ◀ pour `[`et  ▶ pour le caractère `]` .
+- Si la tuile est `.`, la nouvelle carte contient `..` à la place.
+- Si la tuile est `@`, la nouvelle carte contient `@.` à la place.
+
+Cela produira un entrepôt suivant (Le robot ne change pas de taille).
+
+L'exemple plus large devrait donner cela : 
+
+```
+
+####################
+##....[]....[]..[]##
+##............[]..##
+##..[][]....[]..[]##
+##....[]@.....[]..##
+##[]##....[]......##
+##[]....[]....[]..##
+##..[][]..[]..[][]##
+##........[]......##
+####################
+
+```
+
+Étant donné que les boîtes sont désormais deux fois plus larges, mais que le robot conserve la même taille et la même vitesse, les boîtes peuvent être alignées de manière à pousser directement deux autres boîtes à la fois. Prenons l'exemple suivant :
+
+
+```
+
+#######
+#...#.#
+#.....#
+#..OO@#
+#..O..#
+#.....#
+#######
+<vv<<^^<<^^
+
+```
+
+Après avoir redimensionné cette carte de manière appropriée, le robot pousse autour de ces boîtes de la manière suivante :
+
+
+```
+
+Initial state:
+##############
+##......##..##
+##..........##
+##....[][]@.##
+##....[]....##
+##..........##
+##############
+Move <:
+##############
+##......##..##
+##..........##
+##...[][]@..##
+##....[]....##
+##..........##
+##############
+Move v:
+##############
+##......##..##
+##..........##
+##...[][]...##
+##....[].@..##
+##..........##
+##############
+Move v:
+##############
+##......##..##
+##..........##
+##...[][]...##
+##....[]....##
+##.......@..##
+##############
+Move <:
+##############
+##......##..##
+##..........##
+##...[][]...##
+##....[]....##
+##......@...##
+##############
+Move <:
+##############
+##......##..##
+##..........##
+##...[][]...##
+##....[]....##
+##.....@....##
+##############
+Move ^:
+##############
+##......##..##
+##...[][]...##
+##....[]....##
+##.....@....##
+##..........##
+##############
+Move ^:
+##############
+##......##..##
+##...[][]...##
+##....[]....##
+##.....@....##
+##..........##
+##############
+Move <:
+##############
+##......##..##
+##...[][]...##
+##....[]....##
+##....@.....##
+##..........##
+##############
+Move <:
+##############
+##......##..##
+##...[][]...##
+##....[]....##
+##...@......##
+##..........##
+##############
+Move ^:
+##############
+##......##..##
+##...[][]...##
+##...@[]....##
+##..........##
+##..........##
+##############
+Move ^:
+##############
+##...[].##..##
+##...@.[]...##
+##....[]....##
+##..........##
+##..........##
+##############
+
+```
+
+Cet entrepôt utilise également le GPS pour localiser les boîtes. Pour ces grandes boîtes, les distances sont mesurées à partir du bord de la carte jusqu'au bord le plus proche de la boîte en question. Ainsi, la boîte illustrée ci-dessous se trouve à une distance de `1` du bord supérieur de la carte et de `5` du bord gauche de la carte, ce qui donne une coordonnée GPS de `100 * 1 + 5 = 105`.
+
+
+```
+
+##########
+##...[]...
+##........
+
+```
+
+Dans la version agrandie de l'exemple ci-dessus, une fois que le robot a terminé tous ses mouvements, l'entrepôt se présente comme suit :
+
+```
+
+####################
+##[].......[].[][]##
+##[]...........[].##
+##[]........[][][]##
+##[]......[]....[]##
+##..##......[]....##
+##..[]............##
+##..@......[].[][]##
+##......[][]..[]..##
+####################
+
+```
+
+
+La somme des coordonnées GPS des boites donne `_9021_`. 
+
