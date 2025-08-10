@@ -41,6 +41,39 @@ void fichier_commandes(const char* Commande_Du_Robot, Partie* partie, int taille
     }
 }
 
+void fichier_commandes_elargie(const char* Commande_Du_Robot, Partie* partie, int tailleL, int tailleC){
+
+    FILE* fichier = fopen(Commande_Du_Robot, "r");
+    if (fichier == NULL) {
+        printf("Erreur à l'ouverture du fichier %s\n", Commande_Du_Robot);
+        return;
+    }
+
+    char commande;
+    while ((commande = fgetc(fichier)) != EOF) {
+        switch (commande) {
+            case 'z':
+            case '^': deplacement_H(partie); break;
+            case 's':
+            case 'v': deplacement_B(partie, tailleC); break;
+            case 'q':
+            case '<': deplacement_G(partie); break;
+            case 'd':
+            case '>': deplacement_D(partie, tailleL); break;
+            case ' ':
+            case '\n':
+            case '\r': break;
+            default:
+                printf("Commande inconnue : %c\n", commande);
+                break;
+        }
+    }
+
+    if (fclose(fichier) != 0) {
+        printf("Erreur à la fermeture du fichier.\n");
+    }
+}
+
 void determiner_dimensions(const char* commandeProf,Partie* partie) {
     FILE* fichier = fopen(commandeProf, "r");
     if (fichier == NULL) {
@@ -94,7 +127,9 @@ void determiner_dimensions(const char* commandeProf,Partie* partie) {
     partie->largeur = LARGEUR;
 }
 
+
 Case** cree_et_initialisation_fichier(const char* commandeProf, Partie* partie) {
+
     FILE* fichier = fopen(commandeProf, "r");
     if (fichier == NULL) {
         printf("Erreur à l'ouverture du fichier %s\n", commandeProf);
@@ -150,6 +185,73 @@ Case** cree_et_initialisation_fichier(const char* commandeProf, Partie* partie) 
         y++;
     }
 
+    fclose(fichier);
+    return entrepot;
+}
+
+Case** cree_et_initialisation_fichier_elargie(const char* commandeProf, Partie* partie) {
+    
+    FILE* fichier = fopen(commandeProf, "r");
+    if (fichier == NULL) {
+        printf("Erreur à l'ouverture du fichier %s\n", commandeProf);
+        return NULL;
+    }
+
+    // Allocation du tableau 2D de Case
+    Case** entrepot = malloc(partie->hauteur * sizeof(Case*));
+    if (entrepot == NULL) {
+        fprintf(stderr, "Erreur d'allocation mémoire\n");
+        fclose(fichier);
+        return NULL;
+    }
+
+    for (int i = 0; i < partie->hauteur; i++) {
+        entrepot[i] = malloc(partie->largeur * 2 * sizeof(Case));
+        if (entrepot[i] == NULL) {
+            fprintf(stderr, "Erreur d'allocation mémoire\n");
+            for (int j = 0; j < i; j++) {
+                free(entrepot[j]);
+            }
+            free(entrepot);
+            fclose(fichier);
+            return NULL;
+        }
+    }
+
+    // initialisation de l'entrepôt
+    char ligne[partie->largeur * 2 + 2];
+    int y = 0;
+    printf("on dans crée_et_initialisation_fichier_élargie du fichier commande %d\n",partie->largeur);
+    while (fgets(ligne, sizeof(ligne), fichier) != NULL && y < partie->hauteur) {
+        for (int x = 0; x < partie->largeur && ligne[x] != '\0' && ligne[x] != '\n'; x++) {
+            switch (ligne[x]) {
+                case '#':
+                    entrepot[y][x * 2].e = mur;
+                    entrepot[y][x * 2 + 1].e = mur;
+                    break;
+                case 'O':
+                    entrepot[y][x * 2].e = boiteG;
+                    entrepot[y][x * 2 + 1].e = boiteD;
+                    break;
+                case '@':
+                    entrepot[y][x * 2].e = robot;
+                    entrepot[y][x * 2 + 1].e = caseDeChemin;
+                    partie->coup.xFrom = x * 2;
+                    partie->coup.yFrom = y;
+                    break;
+                case '.':
+                    entrepot[y][x * 2].e = caseDeChemin;
+                    entrepot[y][x * 2 + 1].e = caseDeChemin;
+                    break;
+                default:
+                    entrepot[y][x * 2].e = vide;
+                    entrepot[y][x * 2 + 1].e = vide;
+                    break;
+            }
+        }
+        y++;
+    }
+    partie->largeur = partie->largeur * 2;
     fclose(fichier);
     return entrepot;
 }

@@ -39,6 +39,7 @@ int main() {
            " taper 'o' pour l'entrepôt sur le terminal avec le fichier commande pour les déplacements,\n"
            " taper 't' pour l'entrepôt sur le terminal avec le fichier commande pour les déplacements et l'initialisation de l'entrepôt,\n"
            " taper 'u' pour l'entrepôt sur le terminal avec le déplacement du robot zqsd,\n"
+           " taper 'm' pour l'entrepôt sur le terminal avec le fichier commande pour les déplacements et l'initialisation de l'entrepôt élargie,\n"
            " taper 'y' pour l'entrepôt sur la fenêtre de graphique avec le fichier commande pour les déplacements,\n"
            " taper 'i' pour l'entrepôt sur la fenêtre de graphique avec le déplacement du robot zqsd,\n"
            " sélectionner 'p' pour sortir.\n");
@@ -77,8 +78,19 @@ int main() {
         partie.entrepot = creer_entrepot(&partie,tailleC,tailleL);
         SDL2_fichier_commandes("Commande_Du_Robot.txt", &partie,tailleL, tailleC);
     }
+    
+    if (echap == 'm') {
+        determiner_dimensions("commandeProf2.txt", &partie);
+        printf("on à déterminé les dimensions du fichier commande %d\n",partie.hauteur);
+        partie.entrepot = cree_et_initialisation_fichier_elargie("commandeProf2.txt", &partie);
+        printf("on à crée_et_initialisation_fichier_élargie du fichier commande %d\n",partie.hauteur);
+        afficher_entrepot(&partie);
+        printf("on à affiché l'entrepôt %d\n",partie.hauteur);
+        fichier_commandes_elargie("commandeProf2.txt", &partie, partie.largeur, partie.hauteur);
+        afficher_entrepot(&partie);
+    }
 
-    if (echap == 'u' || echap == 'o' || echap == 'i' || echap == 'y' || echap == 't') {
+    if (echap == 'u' || echap == 'o' || echap == 'i' || echap == 'y' || echap == 't' || echap == 'm') {
         printf("Somme des coordonnées GPS de toutes les boîtes : %d\n", Somme(partie));
         liberer_entrepot(partie,tailleL);
     }

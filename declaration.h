@@ -8,7 +8,7 @@
 
 // Définition des structures
 typedef enum { 
-    vide, robot, mur, boite, caseDeChemin 
+    vide, robot, mur, boite, caseDeChemin, boiteG, boiteD 
 } Element;
 
 typedef struct {
@@ -57,5 +57,17 @@ void SDL2_Affiche_entrepot(SDL_Renderer* renderer,Partie* partie, int tailleL, i
 void fichier_commandes(const char* Commande_Du_Robot, Partie* partie, int tailleL, int tailleC);
 void determiner_dimensions(const char* commandeProf,Partie* partie);
 Case** cree_et_initialisation_fichier(const char* Commande_Du_Robot, Partie* partie);
+
+// Fonctions du fichier etrep_elargie
+void fichier_commandes_elargie(const char* Commande_Du_Robot, Partie* partie, int tailleL, int tailleC);
+Case** cree_et_initialisation_fichier_elargie(const char* commandeProf, Partie* partie);
+void determiner_dimensions_elargie(const char* commandeProf,Partie* partie);
+
+// deplacement élargie
+void deplacement_D_elargie(Partie* partie, int tailleL);
+void deplacement_G_elargie(Partie* partie);
+void deplacement_B_elargie(Partie* partie, int tailleC);
+void deplacement_H_elargie(Partie* partie);
+
 
 #endif

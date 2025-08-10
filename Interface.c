@@ -103,7 +103,7 @@ void liberer_entrepot(Partie partie,int tailleL){
  */
 void afficher_entrepot(Partie* partie){
     Case** plateau = partie->entrepot;
-    printf("&hauteur : %d,largeur : %d\n",partie->hauteur,partie->largeur);
+    printf("hauteur : %d,largeur : %d\n",partie->hauteur,partie->largeur);
     for (int i = 0; i < partie->hauteur; i++) {
         for (int j = 0; j < partie->largeur; j++) {
             printf("%s", couleur_element(plateau[i][j].e));
@@ -112,6 +112,9 @@ void afficher_entrepot(Partie* partie){
                 case caseDeChemin: printf("."); break;
                 case robot:        printf("@"); break;
                 case boite:        printf("0"); break;
+                case boiteG:       printf("["); break;
+                case boiteD:       printf("]"); break;
+                case vide:         printf("X"); break;
                 default:           break;
             }
             printf("\033[0m");
