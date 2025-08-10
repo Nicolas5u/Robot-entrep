@@ -19,7 +19,7 @@ int Somme(Partie partie){
     int somme = 0;
     for (int i = 1; i < partie.largeur - 1; i++) {
         for (int j = 1; j < partie.hauteur - 1; j++) {
-            if (plateau[j][i].e == boite){
+            if (plateau[j][i].e == boite || plateau[j][i].e == boiteG || plateau[j][i].e == boiteD){
                 somme += 100 * j + i;
             }
         }

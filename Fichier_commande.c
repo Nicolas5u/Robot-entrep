@@ -8,7 +8,7 @@
  */
 
 
-void fichier_commandes(const char* Commande_Du_Robot, Partie* partie, int tailleL, int tailleC){
+void fichier_commandes(const char* Commande_Du_Robot, Partie* partie){
 
     FILE* fichier = fopen(Commande_Du_Robot, "r");
     if (fichier == NULL) {
@@ -22,16 +22,16 @@ void fichier_commandes(const char* Commande_Du_Robot, Partie* partie, int taille
             case 'z':
             case '^': deplacement_H(partie); break;
             case 's':
-            case 'v': deplacement_B(partie, tailleC); break;
+            case 'v': deplacement_B(partie); break;
             case 'q':
             case '<': deplacement_G(partie); break;
             case 'd':
-            case '>': deplacement_D(partie, tailleL); break;
+            case '>': deplacement_D(partie); break;
             case ' ':
             case '\n':
             case '\r': break;
             default:
-                printf("Commande inconnue : %c\n", commande);
+                // printf("Commande inconnue : %c\n", commande);
                 break;
         }
     }
@@ -41,7 +41,7 @@ void fichier_commandes(const char* Commande_Du_Robot, Partie* partie, int taille
     }
 }
 
-void fichier_commandes_elargie(const char* Commande_Du_Robot, Partie* partie, int tailleL, int tailleC){
+void fichier_commandes_elargie(const char* Commande_Du_Robot, Partie* partie){
 
     FILE* fichier = fopen(Commande_Du_Robot, "r");
     if (fichier == NULL) {
@@ -53,18 +53,18 @@ void fichier_commandes_elargie(const char* Commande_Du_Robot, Partie* partie, in
     while ((commande = fgetc(fichier)) != EOF) {
         switch (commande) {
             case 'z':
-            case '^': deplacement_H(partie); break;
+            case '^': deplacement_H_elargie(partie); break;
             case 's':
-            case 'v': deplacement_B(partie, tailleC); break;
+            case 'v': deplacement_B_elargie(partie); break;
             case 'q':
-            case '<': deplacement_G(partie); break;
+            case '<': deplacement_G_elargie(partie); break;
             case 'd':
-            case '>': deplacement_D(partie, tailleL); break;
+            case '>': deplacement_D_elargie(partie); break;
             case ' ':
             case '\n':
             case '\r': break;
             default:
-                printf("Commande inconnue : %c\n", commande);
+                // printf("Commande inconnue : %c\n", commande);
                 break;
         }
     }
@@ -221,7 +221,7 @@ Case** cree_et_initialisation_fichier_elargie(const char* commandeProf, Partie* 
     // initialisation de l'entrepôt
     char ligne[partie->largeur * 2 + 2];
     int y = 0;
-    printf("on dans crée_et_initialisation_fichier_élargie du fichier commande %d\n",partie->largeur);
+    // printf("on dans crée_et_initialisation_fichier_élargie du fichier commande %d\n",partie->largeur);
     while (fgets(ligne, sizeof(ligne), fichier) != NULL && y < partie->hauteur) {
         for (int x = 0; x < partie->largeur && ligne[x] != '\0' && ligne[x] != '\n'; x++) {
             switch (ligne[x]) {

@@ -27,29 +27,29 @@ char* couleur_element(Element e) {
  * @param partie Pointeur vers la structure Partie.
  * @return Un tableau 2D de type Case représentant l'entrepôt.
  */
-Case** creer_entrepot(Partie* partie,int tailleC,int tailleL){
-    Case** entrepot = (Case**)malloc(tailleL * sizeof(Case*));
+Case** creer_entrepot(Partie* partie){
+    Case** entrepot = (Case**)malloc(partie->hauteur * sizeof(Case*));
     if (entrepot == NULL) {
         printf("Erreur dans l'allocation mémoire pour l'entrepôt\n");
         exit(1);
     }
 
-    for (int i = 0; i < tailleL; i++) {
-        entrepot[i] = (Case*)malloc(tailleC * sizeof(Case));
+    for (int i = 0; i < partie->hauteur ; i++) {
+        entrepot[i] = (Case*)malloc(partie->largeur * sizeof(Case));
         if (entrepot[i] == NULL) {
             printf("Erreur dans l'allocation mémoire pour une ligne de l'entrepôt\n");
             exit(1);
         }
     }
 
-    for (int i = 0; i < tailleL; i++) {
-        for (int j = 0; j < tailleC; j++) {
+    for (int i = 0; i < partie->hauteur; i++) {
+        for (int j = 0; j < partie->largeur; j++) {
             entrepot[i][j].e = caseDeChemin;
         }
     }
 
     printf("petit entrepôt prédéfini\n");
-    PlacementInitiale1(entrepot, partie, tailleC, tailleL);
+    PlacementInitiale1(entrepot, partie);
     
     return entrepot;
 }
@@ -60,7 +60,7 @@ Case** creer_entrepot(Partie* partie,int tailleC,int tailleL){
  * @param entrepot Tableau 2D représentant l'entrepôt.
  * @param partie Pointeur vers la structure Partie.
  */
-void PlacementInitiale1(Case** entrepot, Partie* partie,int tailleC,int tailleL){
+void PlacementInitiale1(Case** entrepot, Partie* partie){
     entrepot[2][2].e = robot;
     partie->coup.xFrom = 2;
     partie->coup.yFrom = 2;
@@ -72,11 +72,11 @@ void PlacementInitiale1(Case** entrepot, Partie* partie,int tailleC,int tailleL)
     entrepot[4][4].e = boite;
     entrepot[5][4].e = boite;
 
-    for (int j = 0; j < tailleL; j++) {
+    for (int j = 0; j < partie->largeur; j++) {
         entrepot[0][j].e = mur;
-        entrepot[tailleL - 1][j].e = mur;
+        entrepot[partie->hauteur - 1][j].e = mur;
         entrepot[j][0].e = mur;
-        entrepot[j][tailleC - 1].e = mur;
+        entrepot[j][partie->largeur - 1].e = mur;
     }
 
     entrepot[2][1].e = mur;
@@ -88,9 +88,9 @@ void PlacementInitiale1(Case** entrepot, Partie* partie,int tailleC,int tailleL)
  * 
  * @param partie La structure Partie contenant l'entrepôt à libérer.
  */
-void liberer_entrepot(Partie partie,int tailleL){
+void liberer_entrepot(Partie partie){
     Case **plateau = partie.entrepot;
-    for (int i = 0; i < tailleL; i++) {
+    for (int i = 0; i < partie.hauteur ; i++) {
         free(plateau[i]);
     }
     free(plateau);
@@ -103,7 +103,7 @@ void liberer_entrepot(Partie partie,int tailleL){
  */
 void afficher_entrepot(Partie* partie){
     Case** plateau = partie->entrepot;
-    printf("hauteur : %d,largeur : %d\n",partie->hauteur,partie->largeur);
+    // printf("hauteur : %d, largeur : %d\n",partie->hauteur,partie->largeur);
     for (int i = 0; i < partie->hauteur; i++) {
         for (int j = 0; j < partie->largeur; j++) {
             printf("%s", couleur_element(plateau[i][j].e));

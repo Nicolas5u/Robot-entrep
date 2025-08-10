@@ -16,7 +16,7 @@ const int CELL_SIZE = 60;
  * @param partie Pointeur vers la structure Partie contenant l'état de l'entrepôt.
  * @return int 0 si succès, 1 en cas d'erreur SDL.
  */
-int affichage(Partie* partie, int tailleL, int tailleC) {
+int affichage(Partie* partie) {
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
         printf("Erreur SDL : %s\n", SDL_GetError());
         return 1;
@@ -57,19 +57,19 @@ int affichage(Partie* partie, int tailleL, int tailleC) {
                         deplacement_H(partie);
                         break;
                     case SDLK_s:
-                        deplacement_B(partie,tailleC);
+                        deplacement_B(partie);
                         break;
                     case SDLK_q:
                         deplacement_G(partie);
                         break;
                     case SDLK_d:
-                        deplacement_D(partie,tailleL);
+                        deplacement_D(partie);
                         break;
                 }
             }
         }
 
-        SDL2_Affiche_entrepot(renderer, partie, tailleL, tailleC);
+        SDL2_Affiche_entrepot(renderer, partie);
         SDL_RenderPresent(renderer);
         SDL_Delay(16);
     }
@@ -90,7 +90,7 @@ int affichage(Partie* partie, int tailleL, int tailleC) {
  * @param partie Pointeur vers la structure Partie contenant l'état de l'entrepôt.
  * @return int 0 si succès, 1 en cas d'erreur SDL ou fichier.
  */
-int SDL2_fichier_commandes(const char* Commande_Du_Robot, Partie* partie, int tailleL, int tailleC) {
+int SDL2_fichier_commandes(const char* Commande_Du_Robot, Partie* partie) {
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
         printf("Erreur SDL : %s\n", SDL_GetError());
         return 1;
@@ -129,11 +129,11 @@ int SDL2_fichier_commandes(const char* Commande_Du_Robot, Partie* partie, int ta
             case 'z':
             case '^': deplacement_H(partie); break;
             case 's':
-            case 'v': deplacement_B(partie,tailleC); break;
+            case 'v': deplacement_B(partie); break;
             case 'q':
             case '<': deplacement_G(partie); break;
             case 'd':
-            case '>': deplacement_D(partie,tailleL); break;
+            case '>': deplacement_D(partie); break;
             case ' ':
             case '\n':
             case '\r': break; // Ignorer espaces et sauts de ligne
@@ -142,7 +142,7 @@ int SDL2_fichier_commandes(const char* Commande_Du_Robot, Partie* partie, int ta
                 break;
         }
 
-        SDL2_Affiche_entrepot(renderer, partie, tailleL,tailleC);
+        SDL2_Affiche_entrepot(renderer, partie);
         SDL_RenderPresent(renderer);
         SDL_Delay(300);
     }
@@ -163,12 +163,12 @@ int SDL2_fichier_commandes(const char* Commande_Du_Robot, Partie* partie, int ta
  * @param renderer Le renderer SDL utilisé pour dessiner.
  * @param partie Pointeur vers la structure Partie contenant l'état de l'entrepôt.
  */
-void SDL2_Affiche_entrepot(SDL_Renderer* renderer, Partie* partie,int tailleL,int tailleC) {
+void SDL2_Affiche_entrepot(SDL_Renderer* renderer, Partie* partie) {
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     SDL_RenderClear(renderer);
 
-    for (int row = 0; row < tailleL; row++) {
-        for (int col = 0; col < tailleC; col++) {
+    for (int row = 0; row < partie->largeur; row++) {
+        for (int col = 0; col < partie->hauteur; col++) {
             SDL_Rect cell = {
                 col * CELL_SIZE,
                 row * CELL_SIZE,

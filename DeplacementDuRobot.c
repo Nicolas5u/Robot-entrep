@@ -6,7 +6,7 @@
  * @param partie Pointeur vers la structure de la partie.
  * @param echap Pointeur vers la touche saisie (utilisé pour quitter avec 'p').
  */
-void deplacement(Partie* partie, char* echap, int tailleL, int tailleC){
+void deplacement(Partie* partie, char* echap){
 
     char direction;
     printf("dans quelle direction va se déplacer le robot ?");
@@ -16,10 +16,10 @@ void deplacement(Partie* partie, char* echap, int tailleL, int tailleC){
     if (*echap == 'p') return;
 
     switch (direction) {
-        case 'd': printf("on veut déplacer le robot à droite\n"); deplacement_D(partie,tailleL); break;
+        case 'd': printf("on veut déplacer le robot à droite\n"); deplacement_D(partie); break;
         case 'q': printf("on veut déplacer le robot à gauche\n"); deplacement_G(partie); break;
         case 'z': printf("on veut déplacer le robot en haut\n"); deplacement_H(partie); break;
-        case 's': printf("on veut déplacer le robot en bas\n"); deplacement_B(partie,tailleC); break;
+        case 's': printf("on veut déplacer le robot en bas\n"); deplacement_B(partie); break;
         default: printf("mauvaise touche sélectionnée\n"); break;
     }
 }
@@ -29,19 +29,19 @@ void deplacement(Partie* partie, char* echap, int tailleL, int tailleC){
  * 
  * @param partie Pointeur vers la structure de la partie.
  */
-void deplacement_D(Partie* partie, int tailleL){
+void deplacement_D(Partie* partie){
     Case** plateau = partie->entrepot;
     int xFrom = partie->coup.xFrom;
     int yFrom = partie->coup.yFrom;
 
     int comptBoite = 0;
     int i = yFrom + 1;
-    while (i < tailleL && plateau[xFrom][i].e == boite) {
+    while (i < partie->largeur && plateau[xFrom][i].e == boite) {
         comptBoite++;
         i++;
     }
 
-    if (yFrom + comptBoite + 1 >= tailleL) {
+    if (yFrom + comptBoite + 1 >= partie->largeur) {
         printf("Déplacement impossible, limite de l'entrepôt\n");
         return;
     }
@@ -93,19 +93,19 @@ void deplacement_G(Partie* partie){
  * 
  * @param partie Pointeur vers la structure de la partie.
  */
-void deplacement_B(Partie* partie, int tailleC){
+void deplacement_B(Partie* partie){
     Case** plateau = partie->entrepot;
     int xFrom = partie->coup.xFrom;
     int yFrom = partie->coup.yFrom;
 
     int comptBoite = 0;
     int i = xFrom + 1;
-    while (i < tailleC && plateau[i][yFrom].e == boite) {
+    while (i < partie->hauteur && plateau[i][yFrom].e == boite) {
         comptBoite++;
         i++;
     }
 
-    if (xFrom + comptBoite + 1 >= tailleC) {
+    if (xFrom + comptBoite + 1 >= partie->hauteur) {
         printf("Déplacement impossible, limite de l'entrepôt\n");
         return;
     }
