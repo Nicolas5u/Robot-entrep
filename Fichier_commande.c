@@ -55,7 +55,7 @@ void fichier_commandes_elargie(const char* Commande_Du_Robot, Partie* partie){
             case 'z':
             case '^': deplacement_H_elargie(partie); break;
             case 's':
-            case 'v': deplacement_B_elargie(partie); break;
+            case 'v': deplacement_vers_le_bas(partie); break;
             case 'q':
             case '<': deplacement_G_elargie(partie); break;
             case 'd':

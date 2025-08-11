@@ -62,10 +62,12 @@ Case** cree_et_initialisation_fichier_elargie(const char* commandeProf, Partie* 
 
 // Fonction du fichier deplacement_elargie.c
 void deplacement_elargie(Partie* partie, char* echap);
-void deplacement_B_elargie(Partie* partie);
 void deplacement_H_elargie(Partie* partie);
 void deplacement_D_elargie(Partie* partie);
 void deplacement_G_elargie(Partie* partie);
+void deplacement_vers_le_bas(Partie* partie);
+void verif_deplacement_B_G(Partie* partie, int x,int y);
+void verif_deplacement_B_D(Partie* partie, int x);
 
 
 #endif
