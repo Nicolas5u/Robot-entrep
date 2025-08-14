@@ -18,6 +18,8 @@ typedef struct {
 typedef struct {
     int xFrom;
     int yFrom;
+    int last_x;
+    int last_y;
 } Coup;
 
 typedef struct {
@@ -65,7 +67,7 @@ void deplacement_elargie(Partie* partie, char* echap);
 void deplacement_H_elargie(Partie* partie);
 void deplacement_D_elargie(Partie* partie);
 void deplacement_G_elargie(Partie* partie);
-void deplacement_vers_le_bas(Partie* partie);
+void deplacement_vers_le_bas(Partie* partie, int x, int y);
 void verif_deplacement_B_G(Partie* partie, int x,int y);
 void verif_deplacement_B_D(Partie* partie, int x);
 
