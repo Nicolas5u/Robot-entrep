@@ -20,6 +20,7 @@ typedef struct {
     int yFrom;
     int last_x;
     int last_y;
+    int compt;
 } Coup;
 
 typedef struct {
@@ -70,6 +71,11 @@ void deplacement_G_elargie(Partie* partie);
 void deplacement_vers_le_bas(Partie* partie, int x, int y);
 void verif_deplacement_B_G(Partie* partie, int x,int y);
 void verif_deplacement_B_D(Partie* partie, int x);
+
+// Fonction dep_ela_test
+void R_deplacement_vers_le_bas_test_recu(Partie* partie, int nb_robot);
+void deplacement_vers_le_bas_test(Partie* partie);
+void deplacement_vers_le_bas_test_recu(Partie* partie);
 
 
 #endif

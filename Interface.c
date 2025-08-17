@@ -104,8 +104,8 @@ void liberer_entrepot(Partie partie){
 void afficher_entrepot(Partie* partie){
     Case** plateau = partie->entrepot;
     // printf("hauteur : %d, largeur : %d\n",partie->hauteur,partie->largeur);
-    for (int i = 0; i < partie->hauteur; i++) {
-        for (int j = 0; j < partie->largeur; j++) {
+    for (int i = 0; i < partie->hauteur ; i++) {
+        for (int j = 0; j < partie->largeur ; j++) {
             printf("%s", couleur_element(plateau[i][j].e));
             switch (plateau[i][j].e) {
                 case mur:          printf("#"); break;

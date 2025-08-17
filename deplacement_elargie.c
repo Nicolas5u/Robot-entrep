@@ -18,6 +18,7 @@ void deplacement_elargie(Partie* partie, char* echap){
     printf("dans quelle direction va se déplacer le robot ? ");
     scanf(" %c", &direction);
     *echap = direction;
+    partie->coup.compt = 0;
 
     if (*echap == 'p') return;
 
@@ -25,7 +26,7 @@ void deplacement_elargie(Partie* partie, char* echap){
         case 'd': printf("on veut déplacer le robot à droite\n"); deplacement_D_elargie(partie); break;
         case 'q': printf("on veut déplacer le robot à gauche\n"); deplacement_G_elargie(partie); break;
         case 'z': printf("on veut déplacer le robot en haut\n"); deplacement_H_elargie(partie); break;
-        case 's': printf("on veut déplacer le robot en bas\n"); deplacement_vers_le_bas(partie,partie->coup.xFrom,partie->coup.yFrom); break;
+        case 's': printf("on veut déplacer le robot en bas\n"); deplacement_vers_le_bas_test(partie); break;
         default: printf("mauvaise touche sélectionnée\n"); break;
     }
 }
@@ -35,12 +36,14 @@ void deplacement_elargie(Partie* partie, char* echap){
 void deplacement_vers_le_bas(Partie* partie, int x, int y) {
 
     Case** plateau = partie->entrepot;
-
+    
     // On gère les déplacements qui impliquent des boites ici (dont celle sous le robot est une [
-    if (plateau[x + 1][y].e == boiteG) {
-        if ((plateau[x + 2][y].e == caseDeChemin && plateau[x + 2][y + 1].e == caseDeChemin) && (x == partie->coup.last_x && y == partie->coup.last_y)) {
-            // il y a des cases de chemin après donc condition de sortie c'est bon
-            printf("Dernier déplacement possible vers le bas 1.\n"); // on a un [ sous le robot et dessous du [] il y a des cases de chemin
+    if (plateau[x + 1][y].e == boiteG && plateau[x + 2][y].e != mur && plateau[x + 2][y + 1].e != mur) {
+    // on a [ sous le robot, pas de mur sous le [ et le ]
+        if (plateau[x + 2][y].e == caseDeChemin && plateau[x + 2][y + 1].e == caseDeChemin) {
+            // il y a des cases de chemin après [ et ] => on déplace le robot et la []
+            printf("1.\n");
+            afficher_entrepot(partie);
             // on déplace les boites
             plateau[x + 2][y].e = boiteG;
             plateau[x + 2][y + 1].e = boiteD;
@@ -49,59 +52,50 @@ void deplacement_vers_le_bas(Partie* partie, int x, int y) {
             plateau[x + 1][y].e = robot;
             plateau[x][y].e = caseDeChemin;
             partie->coup.xFrom = x + 1;
-            return;
+            x ++;
+            printf("2.\n");
+            afficher_entrepot(partie);
+            if (partie->coup.compt != 0){
+                // on déplace le robot en x - 2
+                plateau[x - 2][y].e = robot;
+                plateau[x][y].e = caseDeChemin;
+                partie->coup.xFrom = x - 2;
+                x = x - 2;
+                printf("6. %d\n", partie->hauteur);
+                afficher_entrepot(partie);
+            }else{
+                printf("7.\n");
+                return;
+            }
         }
-        if ((plateau[x + 2][y].e == caseDeChemin && plateau[x + 2][y + 1].e == caseDeChemin) && (x =! partie->coup.last_x && y == partie->coup.last_y)) {
-            // il y a des cases de chemin après donc condition de sortie c'est bon
-            printf("Déplacement possible vers le bas 1.\n"); // on a un [ sous le robot et dessous du [] il y a des cases de chemin
-            // on déplace les boites
-            plateau[x + 2][y].e = boiteG;
-            plateau[x + 2][y + 1].e = boiteD;
-            plateau[x + 1][y + 1].e = caseDeChemin;
-            // on déplace le robot
+        if (plateau[x + 2][y].e == boiteG) {
+            // on a au moins deux [ sous le robot
+            printf("3.\n");
+            afficher_entrepot(partie);
+            // on déplace le robot en x + 1
             plateau[x + 1][y].e = robot;
             plateau[x][y].e = caseDeChemin;
             partie->coup.xFrom = x + 1;
-            plateau[x - 1][y].e = boiteG;
-        }
-        if ((plateau[x + 2][y].e != mur && plateau[x + 2][y + 1].e != mur) && (plateau[x + 2][y].e == boiteG || plateau[x + 2][y].e == boiteD)) {
-            // Il n'y a pas de mur après la premiere [] et il y a [ ou ] apres la 1er [] il y a un [ ou ] sur la ligne du robot
-            printf("étape intermédiaire pour voir en plaçant un robot fantôme à la place du [1\n");
-            printf("x = %d\n",x);
-            partie->coup.last_x = x;
+            x ++;
+            // on enregistre le coordonnée du robot précédent
+            partie->coup.last_x = x - 1;
             partie->coup.last_y = y;
-            deplacement_vers_le_bas(partie, x + 1, y);
+            printf("4.\n");
+            afficher_entrepot(partie);
+            partie->coup.compt ++;
+            deplacement_vers_le_bas(partie, x, y);
         }
     }
-
-    // On gère les déplacements qui impliquent des boites ici (dont celle sous le robot est une ]
-    if (plateau[x + 1][y].e == boiteD) {
-        if (plateau[x + 2][y].e != mur && plateau[x + 2][y - 1].e != mur &&
-            plateau[x + 2][y].e == caseDeChemin && plateau[x + 2][y - 1].e == caseDeChemin) {
-            // Il n'y a pas de mur et il y a des cases de chemin après donc condition de sortie c'est bon
-            printf("Déplacement possible vers le bas 2.\n"); // on a un ] sous le robot
-            // on déplace les boites
-            plateau[x + 2][y - 1].e = boiteG;
-            plateau[x + 2][y].e = boiteD;
-            plateau[x + 1][y - 1].e = caseDeChemin;
-            // on déplace le robot
-            plateau[x + 1][y].e = robot;
-            plateau[x][y].e = caseDeChemin;
-            partie->coup.xFrom = x + 1;
-            return;
-        }
-        if (plateau[x + 2][y].e != mur && plateau[x + 2][y - 1].e != mur &&
-            plateau[x + 2][y].e == boiteD) {
-            // Il n'y a pas de mur et il y a ] après donc on fait un appel pour mettre le robot à la position boiteD1 pour faire les tests
-            verif_deplacement_B_D(partie, x + 1);
-        }
-    }
+    
     // On gère les déplacements qui n'impliquent pas de boite ici
-    if (plateau[x + 1][y].e == caseDeChemin) {
+    if (plateau[x + 1][y].e == caseDeChemin && partie->coup.compt == 0) {
         // Déplacement du robot
-        printf("Déplacement du robot vers le bas 3.\n");
+        printf("5.\n");
+        printf("x = %d\n",x);
+        afficher_entrepot(partie);
         // on déplace le robot
         plateau[x + 1][y].e = robot;
+        x ++;
         plateau[x][y].e = caseDeChemin;
         partie->coup.xFrom = x + 1;
         return;

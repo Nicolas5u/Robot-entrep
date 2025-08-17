@@ -55,7 +55,7 @@ void fichier_commandes_elargie(const char* Commande_Du_Robot, Partie* partie){
             case 'z':
             case '^': deplacement_H_elargie(partie); break;
             case 's':
-            case 'v': deplacement_vers_le_bas(partie,partie->coup.xFrom,partie->coup.yFrom); break;
+            case 'v': deplacement_vers_le_bas_test(partie); break;
             case 'q':
             case '<': deplacement_G_elargie(partie); break;
             case 'd':
@@ -171,8 +171,8 @@ Case** cree_et_initialisation_fichier(const char* commandeProf, Partie* partie) 
                     break;
                 case '@':
                     entrepot[y][x].e = robot;
-                    partie->coup.xFrom = x;
-                    partie->coup.yFrom = y;
+                    partie->coup.xFrom = y;
+                    partie->coup.yFrom = x;
                     break;
                 case '.':
                     entrepot[y][x].e = caseDeChemin;
@@ -236,8 +236,7 @@ Case** cree_et_initialisation_fichier_elargie(const char* commandeProf, Partie* 
                 case '@':
                     entrepot[y][x * 2].e = robot;
                     entrepot[y][x * 2 + 1].e = caseDeChemin;
-                    partie->coup.xFrom = x * 2;
-                    partie->coup.yFrom = y;
+                    partie->coup.yFrom = partie->coup.yFrom * 2;
                     break;
                 case '.':
                     entrepot[y][x * 2].e = caseDeChemin;
