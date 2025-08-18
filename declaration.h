@@ -23,12 +23,31 @@ typedef struct {
     int compt;
 } Coup;
 
+// Structure d'un maillon de liste
+typedef struct Noeud {
+    Coup pos;
+    struct Noeud* suivant;
+} Noeud;
+
+// Structure de la liste
+typedef struct {
+    Noeud* tete;
+    Noeud* queue;
+} Liste;
+
 typedef struct {
     Case** entrepot;
     Coup coup;
     int largeur;
     int hauteur;
+    Liste l;
 } Partie;
+
+
+
+
+
+
 
 
 /* Définitions de toutes les fonctions */
@@ -73,9 +92,10 @@ void verif_deplacement_B_G(Partie* partie, int x,int y);
 void verif_deplacement_B_D(Partie* partie, int x);
 
 // Fonction dep_ela_test
-void R_deplacement_vers_le_bas_test_recu(Partie* partie, int nb_robot);
+void R_deplacement_vers_le_bas_test_recu(Partie* partie, int nb_robot, Liste* l);
 void deplacement_vers_le_bas_test(Partie* partie);
 void deplacement_vers_le_bas_test_recu(Partie* partie);
+Liste* creer_liste();
 
 
 #endif
