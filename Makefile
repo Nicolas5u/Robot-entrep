@@ -5,7 +5,7 @@ CC = gcc
 CFLAGS = -Wall -Wextra -std=c11 $(shell pkg-config --cflags sdl2)
 LDFLAGS = $(shell pkg-config --libs sdl2)
 
-SRC = main.c Interface.c DeplacementDuRobot.c Calcul_Score.c SDL2_pour_affichage.c Fichier_commande.c deplacement_elargie.c dep_ela_test.c
+SRC = main.c Interface.c DeplacementDuRobot.c Calcul_Score.c SDL2_pour_affichage.c Fichier_commande.c deplacement_elargie.c dep_ela_test.c liste.c
 OBJ = $(SRC:.c=.o)
 
 all: $(TARGET)

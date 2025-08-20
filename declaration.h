@@ -20,6 +20,9 @@ typedef struct {
     int yFrom;
     int last_x;
     int last_y;
+    int start_x;
+    int start_y;
+    int fin;
     int compt;
 } Coup;
 
@@ -95,7 +98,13 @@ void verif_deplacement_B_D(Partie* partie, int x);
 void R_deplacement_vers_le_bas_test_recu(Partie* partie, int nb_robot, Liste* l);
 void deplacement_vers_le_bas_test(Partie* partie);
 void deplacement_vers_le_bas_test_recu(Partie* partie);
-Liste* creer_liste();
 
+// Fonction liste.c
+Liste* creer_liste();
+void ajouter_coup(Liste* l, int x, int y);
+int liste_vide(Liste* l);
+int retirer_coup(Liste* l, Partie* partie);
+void afficher_liste(Liste* l);
+void liberer_liste(Liste* l);
 
 #endif
