@@ -102,13 +102,11 @@ int main() {
         printf("Entrepôt initial : \n");
         determiner_dimensions("commandeProf2.txt", &partie);
         partie.entrepot = cree_et_initialisation_fichier("commandeProf2.txt", &partie);
-        printf("partie->largeur : %d, partie->hauteur : %d\n",partie.largeur,partie.hauteur);
         afficher_entrepot(&partie);
         liberer_entrepot(partie);
         
         // on utilise le fichier pour créé l'entrepôt élargie et le modifier
         partie.entrepot = cree_et_initialisation_fichier_elargie("commandeProf2.txt", &partie);
-        printf("partie->largeur : %d, partie->hauteur : %d\n",partie.largeur,partie.hauteur);
         printf("Entrepôt élargie : \n");
         while (echap != 'p') {
             afficher_entrepot(&partie);

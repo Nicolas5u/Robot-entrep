@@ -87,17 +87,22 @@ Case** cree_et_initialisation_fichier_elargie(const char* commandeProf, Partie* 
 
 // Fonction du fichier deplacement_elargie.c
 void deplacement_elargie(Partie* partie, char* echap);
-void deplacement_H_elargie(Partie* partie);
 void deplacement_D_elargie(Partie* partie);
 void deplacement_G_elargie(Partie* partie);
-void deplacement_vers_le_bas(Partie* partie, int x, int y);
-void verif_deplacement_B_G(Partie* partie, int x,int y);
-void verif_deplacement_B_D(Partie* partie, int x);
 
 // Fonction dep_ela_test
-void R_deplacement_vers_le_bas_test_recu(Partie* partie, int nb_robot, Liste* l);
-void deplacement_vers_le_bas_test(Partie* partie);
-void deplacement_vers_le_bas_test_recu(Partie* partie);
+void deplacement_B_elargie(Partie* partie);
+void R_deplacement_B_elargie(Partie* partie, Liste*, Case** lenregistrement_plateau);
+void deplacement_B_elargie_affichage(Partie* partie);
+int deplacement_bas_possible(Partie* partie);
+void liberer_entrepot_enregistre(Case** plateau, int hauteur);
+Case** copier_plateau(Case** original, int hauteur, int largeur);
+
+// Fonction deplacement_elargie_haut
+void deplacement_H_elargie(Partie* partie);
+void R_deplacement_H_elargie(Partie* partie, Liste*, Case** lenregistrement_plateau);
+void deplacement_H_elargie_affichage(Partie* partie);
+int deplacement_haut_possible(Partie* partie);
 
 // Fonction liste.c
 Liste* creer_liste();

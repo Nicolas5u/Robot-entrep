@@ -1,22 +1,27 @@
 #include "declaration.h"
 
 
-void deplacement_vers_le_bas_test(Partie* partie){
+void deplacement_B_elargie(Partie* partie){
     
     Case** plateau = partie->entrepot;
+
+    // faire une copie
+    Case** enregistrement_plateau = copier_plateau(plateau, partie->hauteur, partie->largeur);
+    if (!enregistrement_plateau) {
+        fprintf(stderr, "Erreur allocation copie du plateau\n");
+        return;
+    }
+
     int x = partie->coup.xFrom;
     int y = partie->coup.yFrom;
-    // on enregistre la position initial du robot pour pouvoir le placer proprement à la fin de la fonction
+    // on enregistre la position initiale 
     partie->coup.start_x = partie->coup.xFrom;
     partie->coup.start_y = partie->coup.yFrom;
-    // variable
     int nb_robot = 1;
     partie->coup.fin = 4;
     
-    // on créé une liste chaînée                                             MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+    // on créé une liste chaînée
     Liste* l = creer_liste();
-    
-    printf("0. x : %d, y : %d\n",x,y);
     
     
     // on étudie le cas où il y a des boites sous le robot et on ne s'intéressera qu'à [ car il y aura forcement un ] à droite
@@ -37,144 +42,123 @@ void deplacement_vers_le_bas_test(Partie* partie){
         }
     // On gère les déplacements qui n'impliquent pas de boite ici
     if (plateau[x + 1][y].e == caseDeChemin) {
-        // on déplace le robot
-        printf("1. x : %d, y : %d\n",x,y);
-        afficher_entrepot(partie);
         plateau[x][y].e = caseDeChemin;
         plateau[x + 1][y].e = robot;
         partie->coup.xFrom ++;
-        printf("2. x : %d, y : %d\n",x,y);
-        afficher_entrepot(partie);
+        partie->coup.fin = 7;
         return;
     }
     
     // si on avait une boite sous le robot alors cette fonction toute les boites sous le robot [] devient [@
-    R_deplacement_vers_le_bas_test_recu(partie, nb_robot, l);
-    afficher_entrepot(partie);
+    R_deplacement_B_elargie(partie, l, enregistrement_plateau);
     
     // si on avait une boite sous le robot alors toute ces boites sont [@ donc maintenant on les fait se déplacer vers le bas en commençant par le bas
-    deplacement_vers_le_bas_test_recu(partie);
-    printf("10. x : %d, y : %d\n",partie->coup.xFrom,partie->coup.yFrom);
-    afficher_entrepot(partie);
+    deplacement_B_elargie_affichage(partie);
     
     // on met le robot au bon endroit à la fin
-    printf("10. x : %d, y : %d\n",partie->coup.start_x,partie->coup.start_y);
-    partie->coup.xFrom = partie->coup.start_x +1;
-    partie->coup.yFrom = partie->coup.start_y;
-    plateau[partie->coup.xFrom][partie->coup.yFrom].e = robot;
-    printf("10. x : %d, y : %d\n",partie->coup.xFrom,partie->coup.yFrom);
-    afficher_entrepot(partie);
+    // remettre le robot au bon endroit
+    if (nb_robot == 2 && partie->coup.fin == 5){
+        partie->coup.xFrom = partie->coup.start_x + 1;
+        partie->coup.yFrom = partie->coup.start_y;
+        plateau[partie->coup.xFrom][partie->coup.yFrom].e = robot;
+    }
+    if (nb_robot == 2 && partie->coup.fin == 6){
+        partie->coup.xFrom = partie->coup.start_x;
+        partie->coup.yFrom = partie->coup.start_y;
+        plateau[partie->coup.xFrom][partie->coup.yFrom].e = robot;
+    }
     
-    // on supprime l'espace alloué à la liste chaînée                                             MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+    // on supprime l'espace alloué à la liste chaînée
     liberer_liste(l);
+    liberer_entrepot_enregistre(enregistrement_plateau, partie->hauteur);
+
 }
 
-void R_deplacement_vers_le_bas_test_recu(Partie* partie, int nb_robot, Liste* l){
+void R_deplacement_B_elargie(Partie* partie, Liste* l, Case** enregistrement_plateau){
     
     Case** plateau = partie->entrepot;
     int x = partie->coup.xFrom;
     int y = partie->coup.yFrom;
-    printf("3. x : %d, y : %d\n",x,y);
-    afficher_entrepot(partie);
     
-    
+    if (deplacement_bas_possible(partie) == 1) {
+    // on restaure l'ancien état
+        for (int i = 0; i < partie->hauteur; i++) {
+            memcpy(plateau[i], enregistrement_plateau[i], partie->largeur * sizeof(Case));
+        }
+    }
     
     // 2eme rangé après le robot
     if ((plateau[x + 1][y].e != boiteG && plateau[x + 1][y - 1].e != boiteG && plateau[x + 1][y - 2].e != boiteG) && liste_vide(l)){
-        printf("c'est bon\n");
         partie->coup.fin = 5;
         return;
     }
     if ((plateau[x + 1][y].e != boiteG && plateau[x + 1][y - 1].e != boiteG && plateau[x + 1][y - 2].e != boiteG) && !liste_vide(l)){
         // on met le robot qui n'est pas fantôme et qui attendait en action
-        printf("c'est bon pour le moment\n");
-        printf("8a. x : %d, y : %d\n",x,y);
         
-        // on met à jour la position du robot des tests sur les robots qui n'avait pas pu être testé                                      MMMMMMMMMMMMMMMMMMMMMMMp
+        // on met à jour la position du robot des tests sur les robots qui n'avait pas pu être testé
         
         retirer_coup(l, partie);
-        afficher_liste(l);
         
-        R_deplacement_vers_le_bas_test_recu(partie, nb_robot,l);
+        R_deplacement_B_elargie(partie,l,enregistrement_plateau);
     }
     if (plateau[x + 1][y - 1].e == boiteG 
     && plateau[x + 2][y - 1].e != mur && plateau[x + 2][y].e != mur){
-        printf("4. x : %d, y : %d\n",x,y);
-        afficher_entrepot(partie);
-        nb_robot ++;
         plateau[x + 1][y].e = robot;
         partie->coup.xFrom ++;
         x ++;
-        printf("4. x : %d, y : %d\n",x,y);
-        R_deplacement_vers_le_bas_test_recu(partie, nb_robot,l);
+        R_deplacement_B_elargie(partie,l,enregistrement_plateau);
     }
     if (plateau[x + 1][y].e == boiteG && plateau[x + 1][y - 2].e == boiteG && plateau[x + 1][y - 1].e == boiteD
     && plateau[x + 2][y].e != mur && plateau[x + 2][y + 1].e != mur && plateau[x + 2][y - 1].e != mur && plateau[x + 2][y - 2].e != mur){
-        printf("5a. x : %d, y : %d\n",x,y);
-        afficher_entrepot(partie);
-        nb_robot = nb_robot + 2;
         plateau[x + 1][y + 1].e = robot;
         plateau[x + 1][y - 1].e = robot;
         partie->coup.xFrom ++;
         partie->coup.yFrom --;
         x ++;
         y --;
-        printf("5b. x : %d, y : %d\n",x,y);
         
-        // on enregistre la position du deuxième robot qu'on ne tester pas dans la liste chaînée         MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+        // on enregistre la position du deuxième robot qu'on ne tester pas dans la liste chaînée
         ajouter_coup(l, partie->coup.xFrom, partie->coup.yFrom +2);
-        afficher_liste(l);
         
-        R_deplacement_vers_le_bas_test_recu(partie, nb_robot,l);
+        R_deplacement_B_elargie(partie,l,enregistrement_plateau);
         
     }
     if (plateau[x + 1][y].e == boiteG && plateau[x + 1][y - 2].e == boiteG && plateau[x + 1][y - 1].e == robot
     && plateau[x + 2][y].e != mur && plateau[x + 2][y + 1].e != mur && plateau[x + 2][y - 1].e != mur && plateau[x + 2][y - 2].e != mur
-    && partie->coup.fin == 4){
-        printf("9a. x : %d, y : %d\n",x,y);
-        afficher_entrepot(partie);
-        nb_robot ++;
+    && (partie->coup.fin == 4)){
         plateau[x + 1][y + 1].e = robot;
         partie->coup.xFrom ++;
         partie->coup.yFrom ++;
         x ++;
         y ++;
-        printf("9b. x : %d, y : %d\n",x,y);
-        printf("9c. x : %d, y : %d\n",partie->coup.xFrom,partie->coup.yFrom);
         
-        R_deplacement_vers_le_bas_test_recu(partie, nb_robot,l);
-        
+        R_deplacement_B_elargie(partie,l,enregistrement_plateau);
     }
-    if ((plateau[x + 1][y].e == boiteG && plateau[x + 1][y + 1].e == boiteD) && (plateau[x + 2][y].e != mur && plateau[x + 2][y + 1].e != mur)){
-        printf("6a. x : %d, y : %d\n",x,y);
-        afficher_entrepot(partie);
-        nb_robot ++;
+    
+    if ((plateau[x + 1][y].e == boiteG && plateau[x + 1][y + 1].e == boiteD) && (plateau[x + 2][y].e != mur && plateau[x + 2][y + 1].e != mur) && partie->coup.fin == 4){
         plateau[x + 1][y + 1].e = robot;
         partie->coup.xFrom ++;
         partie->coup.yFrom ++;
         x ++;
         y ++;
-        printf("6b. x : %d, y : %d\n",x,y);
-        R_deplacement_vers_le_bas_test_recu(partie, nb_robot,l);
+        
+        R_deplacement_B_elargie(partie,l,enregistrement_plateau);
     }
     if (plateau[x + 1][y - 2].e == boiteG && plateau[x + 1][y - 1].e == boiteD
     && plateau[x + 2][y - 2].e != mur && plateau[x + 2][y - 1].e != mur){
-        printf("7a. x : %d, y : %d\n",x,y);
-        afficher_entrepot(partie);
-        nb_robot ++;
         plateau[x + 1][y - 1].e = robot;
         partie->coup.xFrom ++;
         partie->coup.yFrom --;
         x ++;
         y --;
-        printf("7b. x : %d, y : %d\n",x,y);
-        R_deplacement_vers_le_bas_test_recu(partie, nb_robot,l);
+        
+        R_deplacement_B_elargie(partie,l,enregistrement_plateau);
     }
 }
 
-void deplacement_vers_le_bas_test_recu(Partie* partie){
+void deplacement_B_elargie_affichage(Partie* partie){
     Case** plateau = partie->entrepot;
-    printf("partie->largeur : %d, partie->hauteur : %d\n",partie->largeur,partie->hauteur);
+    
     for (int x = partie->hauteur - 3; x >= 1; x--){
         for (int y = 2; y < partie->largeur - 3; y++){
             if (plateau[x][y].e == boiteG && plateau[x][y + 1].e == robot){
@@ -186,3 +170,56 @@ void deplacement_vers_le_bas_test_recu(Partie* partie){
         }
     }
 }
+
+int deplacement_bas_possible(Partie* partie){
+
+    int x = partie->coup.xFrom;
+    int y = partie->coup.yFrom;
+    Case** plateau = partie->entrepot;
+    
+    // vérification de si un mur bloque tout le déplacement
+    if ((plateau[x + 1][y].e == mur) || // cas 1
+    
+    (plateau[x + 1][y - 1].e == boiteG && (plateau[x + 2][y - 1].e == mur || plateau[x + 2][y].e == mur)) || // cas 2 et 5
+    
+    (plateau[x + 1][y].e == boiteG && (plateau[x + 2][y].e == mur || plateau[x + 2][y + 1].e == mur)) || // cas 3
+    
+    (plateau[x][y - 1].e == boiteG && plateau[x + 1][y].e == boiteG && (plateau[x][y - 1].e == mur || plateau[x + 2][y].e == mur || plateau[x + 2][y + 1].e == mur)) || // cas 4
+    
+    (plateau[x][y - 1].e == boiteG && plateau[x + 1][y - 2].e == boiteG && (plateau[x + 1][y].e == mur || plateau[x + 2][y - 2].e == mur || plateau[x + 2][y - 1].e == mur)) || // cas 6
+    
+    (plateau[x][y - 1].e == boiteG && plateau[x + 1][y].e == boiteG && plateau[x + 1][y -2].e == boiteG && (plateau[x + 2][y - 2].e == mur || plateau[x + 2][y - 1].e == mur || plateau[x + 2][y].e == mur || plateau[x + 2][y + 1].e == mur)) // cas 7
+    ){
+        printf("Un mur bloque le déplacement vers le bas\n");
+        partie->coup.fin = 6;
+        
+        return 1;
+    }
+    return 0;
+}
+
+
+
+void liberer_entrepot_enregistre(Case** plateau, int hauteur) {
+    for (int i = 0; i < hauteur; i++) {
+        free(plateau[i]);
+    }
+    free(plateau);
+}
+
+Case** copier_plateau(Case** original, int hauteur, int largeur) {
+    Case** copie = malloc(hauteur * sizeof(Case*));
+    if (!copie) return NULL;
+
+    for (int i = 0; i < hauteur; i++) {
+        copie[i] = malloc(largeur * sizeof(Case));
+        if (!copie[i]) {
+            for (int j = 0; j < i; j++) free(copie[j]);
+            free(copie);
+            return NULL;
+        }
+        memcpy(copie[i], original[i], largeur * sizeof(Case)); // copie ligne par ligne
+    }
+    return copie;
+}
+

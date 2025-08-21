@@ -49,8 +49,6 @@ int retirer_coup(Liste* l, Partie* partie) {
     // Mise à jour directe de partie->coup
     partie->coup.xFrom = tmp->pos.xFrom;
     partie->coup.yFrom = tmp->pos.yFrom;
-    
-    printf("8b. x : %d, y : %d\n",partie->coup.xFrom,partie->coup.yFrom);
 
     l->tete = tmp->suivant;
     if (l->tete == NULL) {
