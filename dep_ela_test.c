@@ -53,7 +53,9 @@ void deplacement_B_elargie(Partie* partie){
     R_deplacement_B_elargie(partie, l, enregistrement_plateau);
     
     // si on avait une boite sous le robot alors toute ces boites sont [@ donc maintenant on les fait se déplacer vers le bas en commençant par le bas
-    deplacement_B_elargie_affichage(partie);
+    if (partie->coup.fin == 5 || partie->coup.fin == 4){
+        deplacement_B_elargie_affichage(partie);
+    }
     
     // on met le robot au bon endroit à la fin
     // remettre le robot au bon endroit
@@ -80,6 +82,7 @@ void R_deplacement_B_elargie(Partie* partie, Liste* l, Case** enregistrement_pla
     int x = partie->coup.xFrom;
     int y = partie->coup.yFrom;
     
+    // 1 if pour si ce n'est pas bon il nous reste plus qu'à remettre l'entrepôt comme avant
     if (deplacement_bas_possible(partie) == 1) {
     // on restaure l'ancien état
         for (int i = 0; i < partie->hauteur; i++) {
@@ -87,29 +90,33 @@ void R_deplacement_B_elargie(Partie* partie, Liste* l, Case** enregistrement_pla
         }
     }
     
-    // 2eme rangé après le robot
+    // 1 if pour si c'est bon il nous reste plus qu'à déplacer les boites ( [@ ) vers le bas
     if ((plateau[x + 1][y].e != boiteG && plateau[x + 1][y - 1].e != boiteG && plateau[x + 1][y - 2].e != boiteG) && liste_vide(l)){
+    
         partie->coup.fin = 5;
         return;
     }
-    if ((plateau[x + 1][y].e != boiteG && plateau[x + 1][y - 1].e != boiteG && plateau[x + 1][y - 2].e != boiteG) && !liste_vide(l)){
-        // on met le robot qui n'est pas fantôme et qui attendait en action
-        
-        // on met à jour la position du robot des tests sur les robots qui n'avait pas pu être testé
+    
+    // 1 if pour si c'est bon mais il nous reste des robots fantômes qu'on à pas testé
+    if ((plateau[x + 1][y].e != boiteG && plateau[x + 1][y - 1].e != boiteG && plateau[x + 1][y - 2].e != boiteG) 
+    && (!liste_vide(l))
+    && (partie->coup.fin == 4)){
         
         retirer_coup(l, partie);
-        
         R_deplacement_B_elargie(partie,l,enregistrement_plateau);
     }
-    if (plateau[x + 1][y - 1].e == boiteG 
-    && plateau[x + 2][y - 1].e != mur && plateau[x + 2][y].e != mur){
+    if ((plateau[x + 1][y - 1].e == boiteG)
+    && (plateau[x + 2][y - 1].e != mur && plateau[x + 2][y].e != mur)
+    && (partie->coup.fin == 4)){
         plateau[x + 1][y].e = robot;
         partie->coup.xFrom ++;
         x ++;
         R_deplacement_B_elargie(partie,l,enregistrement_plateau);
     }
-    if (plateau[x + 1][y].e == boiteG && plateau[x + 1][y - 2].e == boiteG && plateau[x + 1][y - 1].e == boiteD
-    && plateau[x + 2][y].e != mur && plateau[x + 2][y + 1].e != mur && plateau[x + 2][y - 1].e != mur && plateau[x + 2][y - 2].e != mur){
+    
+    if ((plateau[x + 1][y].e == boiteG && plateau[x + 1][y - 2].e == boiteG && plateau[x + 1][y - 1].e == boiteD)
+    && (plateau[x + 2][y].e != mur && plateau[x + 2][y + 1].e != mur && plateau[x + 2][y - 1].e != mur && plateau[x + 2][y - 2].e != mur)
+    && (partie->coup.fin == 4)){
         plateau[x + 1][y + 1].e = robot;
         plateau[x + 1][y - 1].e = robot;
         partie->coup.xFrom ++;
@@ -135,7 +142,9 @@ void R_deplacement_B_elargie(Partie* partie, Liste* l, Case** enregistrement_pla
         R_deplacement_B_elargie(partie,l,enregistrement_plateau);
     }
     
-    if ((plateau[x + 1][y].e == boiteG && plateau[x + 1][y + 1].e == boiteD) && (plateau[x + 2][y].e != mur && plateau[x + 2][y + 1].e != mur) && partie->coup.fin == 4){
+    if ((plateau[x + 1][y].e == boiteG && plateau[x + 1][y + 1].e == boiteD) 
+    && (plateau[x + 2][y].e != mur && plateau[x + 2][y + 1].e != mur) 
+    && (partie->coup.fin == 4)){
         plateau[x + 1][y + 1].e = robot;
         partie->coup.xFrom ++;
         partie->coup.yFrom ++;
@@ -144,8 +153,9 @@ void R_deplacement_B_elargie(Partie* partie, Liste* l, Case** enregistrement_pla
         
         R_deplacement_B_elargie(partie,l,enregistrement_plateau);
     }
-    if (plateau[x + 1][y - 2].e == boiteG && plateau[x + 1][y - 1].e == boiteD
-    && plateau[x + 2][y - 2].e != mur && plateau[x + 2][y - 1].e != mur){
+    if ((plateau[x + 1][y - 2].e == boiteG && plateau[x + 1][y - 1].e == boiteD)
+    && (plateau[x + 2][y - 2].e != mur && plateau[x + 2][y - 1].e != mur)
+    && (partie->coup.fin == 4)){
         plateau[x + 1][y - 1].e = robot;
         partie->coup.xFrom ++;
         partie->coup.yFrom --;

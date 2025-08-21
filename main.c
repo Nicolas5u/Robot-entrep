@@ -52,10 +52,10 @@ int main() {
     }
     
     if (echap == 't') {
-        determiner_dimensions("commandeProf2.txt", &partie);
-        partie.entrepot = cree_et_initialisation_fichier("commandeProf2.txt", &partie);
+        determiner_dimensions("commandeProf.txt", &partie);
+        partie.entrepot = cree_et_initialisation_fichier("commandeProf.txt", &partie);
         afficher_entrepot(&partie);
-        fichier_commandes("commandeProf2.txt", &partie);
+        fichier_commandes("commandeProf.txt", &partie);
         afficher_entrepot(&partie);
     }
 
@@ -82,16 +82,16 @@ int main() {
     
         // on affiche l'entrepôt non élargie
         printf("Entrepôt initial : \n");
-        determiner_dimensions("commandeProf2.txt", &partie);
-        partie.entrepot = cree_et_initialisation_fichier("commandeProf2.txt", &partie);
+        determiner_dimensions("commandeProf.txt", &partie);
+        partie.entrepot = cree_et_initialisation_fichier("commandeProf.txt", &partie);
         afficher_entrepot(&partie);
         liberer_entrepot(partie);
         
         // on utilise le fichier pour créé l'entrepôt élargie et le modifier
-        partie.entrepot = cree_et_initialisation_fichier_elargie("commandeProf2.txt", &partie);
+        partie.entrepot = cree_et_initialisation_fichier_elargie("commandeProf.txt", &partie);
         printf("Entrepôt élargie : \n");
         afficher_entrepot(&partie);
-        fichier_commandes_elargie("commandeProf2.txt", &partie);
+        fichier_commandes_elargie("commandeProf.txt", &partie);
         printf("Entrepôt élargie après déplacement : \n");
         afficher_entrepot(&partie);
     }
