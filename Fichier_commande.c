@@ -177,6 +177,12 @@ Case** cree_et_initialisation_fichier(const char* commandeProf, Partie* partie) 
                 case '.':
                     entrepot[y][x].e = caseDeChemin;
                     break;
+                case '[':
+                    entrepot[y][x].e = boiteG;
+                    break;
+                case ']':
+                    entrepot[y][x].e = boiteD;
+                    break;
                 default:
                     entrepot[y][x].e = vide;
                     break;

@@ -41,6 +41,7 @@ int main() {
            " taper 'l' pour l'entrepôt sur le terminal avec le fichier commande pour l'initialisation de l'entrepôt élargie et le déplacement du robot zqsd,\n"
            " taper 'y' pour l'entrepôt sur la fenêtre de graphique avec le fichier commande pour les déplacements,\n"
            " taper 'i' pour l'entrepôt sur la fenêtre de graphique avec le déplacement du robot zqsd,\n"
+           " taper 'g' pour le problème de déplacement,\n"
            " sélectionner 'p' pour sortir.\n");
 
     scanf(" %c", &echap);
@@ -83,6 +84,7 @@ int main() {
         // on affiche l'entrepôt non élargie
         printf("Entrepôt initial : \n");
         determiner_dimensions("commandeProf.txt", &partie);
+        printf(" %d, %d ",partie.hauteur,partie.largeur);
         partie.entrepot = cree_et_initialisation_fichier("commandeProf.txt", &partie);
         afficher_entrepot(&partie);
         liberer_entrepot(partie);
@@ -117,8 +119,27 @@ int main() {
         printf("Entrepôt élargie après déplacement : \n");
         afficher_entrepot(&partie);
     }
+    
+    if (echap == 'g') {
+    
+        // on affiche l'entrepôt non élargie
+        printf("Entrepôt initial : \n");
+        determiner_dimensions("commandeProf3.txt", &partie);
+        
+        // on utilise le fichier pour créé l'entrepôt élargie et le modifier
+        partie.entrepot = cree_et_initialisation_fichier("commandeProf3.txt", &partie);
+        printf("Entrepôt élargie : \n");
+        while (echap != 'p') {
+            afficher_entrepot(&partie);
+            deplacement_elargie(&partie, &echap);
+            printf(" 'p' pour quitter le mode \n");
+        }
+        echap = 'p';
+        printf("Entrepôt élargie après déplacement : \n");
+        afficher_entrepot(&partie);
+    }
 
-    if (echap == 'u' || echap == 'o' || echap == 'i' || echap == 'y' || echap == 't' || echap == 'm' || echap == 'l') {
+    if (echap == 'u' || echap == 'o' || echap == 'i' || echap == 'y' || echap == 't' || echap == 'm' || echap == 'l' || echap == 'i' || echap == 'g') {
         printf("Somme des coordonnées GPS de toutes les boîtes : %d\n", Somme(partie));
         liberer_entrepot(partie);
     }
