@@ -92,7 +92,6 @@ void R_deplacement_B_elargie(Partie* partie, Liste* l, Case** enregistrement_pla
     
     // 1 if pour si c'est bon il nous reste plus qu'à déplacer les boites ( [@ ) vers le bas
     if ((plateau[x + 1][y].e != boiteG && plateau[x + 1][y - 1].e != boiteG && plateau[x + 1][y - 2].e != boiteG) && liste_vide(l)){
-    
         partie->coup.fin = 5;
         return;
     }
@@ -101,10 +100,12 @@ void R_deplacement_B_elargie(Partie* partie, Liste* l, Case** enregistrement_pla
     if ((plateau[x + 1][y].e != boiteG && plateau[x + 1][y - 1].e != boiteG && plateau[x + 1][y - 2].e != boiteG) 
     && (!liste_vide(l))
     && (partie->coup.fin == 4)){
-        
         retirer_coup(l, partie);
+        x = partie->coup.xFrom;
+        y = partie->coup.yFrom;
         R_deplacement_B_elargie(partie,l,enregistrement_plateau);
     }
+    
     if ((plateau[x + 1][y - 1].e == boiteG)
     && (plateau[x + 2][y - 1].e != mur && plateau[x + 2][y].e != mur)
     && (partie->coup.fin == 4)){
@@ -130,7 +131,11 @@ void R_deplacement_B_elargie(Partie* partie, Liste* l, Case** enregistrement_pla
         R_deplacement_B_elargie(partie,l,enregistrement_plateau);
         
     }
-    if (plateau[x + 1][y].e == boiteG && plateau[x + 1][y - 2].e == boiteG && plateau[x + 1][y - 1].e == robot
+    
+    x = partie->coup.xFrom;
+    y = partie->coup.yFrom;
+
+    if ((plateau[x + 1][y].e == boiteG && plateau[x + 1][y - 2].e == boiteG && plateau[x + 1][y - 1].e == robot)
     && plateau[x + 2][y].e != mur && plateau[x + 2][y + 1].e != mur && plateau[x + 2][y - 1].e != mur && plateau[x + 2][y - 2].e != mur
     && (partie->coup.fin == 4)){
         plateau[x + 1][y + 1].e = robot;
@@ -141,6 +146,7 @@ void R_deplacement_B_elargie(Partie* partie, Liste* l, Case** enregistrement_pla
         
         R_deplacement_B_elargie(partie,l,enregistrement_plateau);
     }
+    
     
     if ((plateau[x + 1][y].e == boiteG && plateau[x + 1][y + 1].e == boiteD) 
     && (plateau[x + 2][y].e != mur && plateau[x + 2][y + 1].e != mur) 
@@ -153,6 +159,8 @@ void R_deplacement_B_elargie(Partie* partie, Liste* l, Case** enregistrement_pla
         
         R_deplacement_B_elargie(partie,l,enregistrement_plateau);
     }
+    
+    
     if ((plateau[x + 1][y - 2].e == boiteG && plateau[x + 1][y - 1].e == boiteD)
     && (plateau[x + 2][y - 2].e != mur && plateau[x + 2][y - 1].e != mur)
     && (partie->coup.fin == 4)){
@@ -187,16 +195,33 @@ int deplacement_bas_possible(Partie* partie){
     int y = partie->coup.yFrom;
     Case** plateau = partie->entrepot;
     
+    
     // vérification de si un mur bloque tout le déplacement
-    if ((plateau[x + 1][y].e == mur) || // cas 1
+    if ((plateau[x + 1][y].e == mur) // cas 1
+    ){
+        printf("Un mur bloque le déplacement vers le bas\n");
+        partie->coup.fin = 6;
+        
+        return 1;
+    }
+    if ((plateau[x + 1][y - 1].e == boiteG && (plateau[x + 2][y - 1].e == mur || plateau[x + 2][y].e == mur)) // cas 2 et 5
+    ){
+        printf("Un mur bloque le déplacement vers le bas\n");
+        partie->coup.fin = 6;
+        
+        return 1;
+    }
+    if ((plateau[x + 1][y].e == boiteG && (plateau[x + 2][y].e == mur || plateau[x + 2][y + 1].e == mur)) || // cas 3
     
-    (plateau[x + 1][y - 1].e == boiteG && (plateau[x + 2][y - 1].e == mur || plateau[x + 2][y].e == mur)) || // cas 2 et 5
+    (plateau[x][y - 1].e == boiteG && plateau[x + 1][y].e == boiteG && (plateau[x][y - 1].e == mur || plateau[x + 2][y].e == mur || plateau[x + 2][y + 1].e == mur)) // cas 4
+    ){
+        printf("Un mur bloque le déplacement vers le bas\n");
+        partie->coup.fin = 6;
+        
+        return 1;
+    }
     
-    (plateau[x + 1][y].e == boiteG && (plateau[x + 2][y].e == mur || plateau[x + 2][y + 1].e == mur)) || // cas 3
-    
-    (plateau[x][y - 1].e == boiteG && plateau[x + 1][y].e == boiteG && (plateau[x][y - 1].e == mur || plateau[x + 2][y].e == mur || plateau[x + 2][y + 1].e == mur)) || // cas 4
-    
-    (plateau[x][y - 1].e == boiteG && plateau[x + 1][y - 2].e == boiteG && (plateau[x + 1][y].e == mur || plateau[x + 2][y - 2].e == mur || plateau[x + 2][y - 1].e == mur)) || // cas 6
+    if ((plateau[x][y - 1].e == boiteG && plateau[x + 1][y - 2].e == boiteG && (plateau[x + 1][y].e == mur || plateau[x + 2][y - 2].e == mur || plateau[x + 2][y - 1].e == mur)) || // cas 6
     
     (plateau[x][y - 1].e == boiteG && plateau[x + 1][y].e == boiteG && plateau[x + 1][y -2].e == boiteG && (plateau[x + 2][y - 2].e == mur || plateau[x + 2][y - 1].e == mur || plateau[x + 2][y].e == mur || plateau[x + 2][y + 1].e == mur)) // cas 7
     ){

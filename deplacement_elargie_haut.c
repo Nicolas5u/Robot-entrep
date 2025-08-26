@@ -104,6 +104,7 @@ void R_deplacement_H_elargie(Partie* partie, Liste* l, Case** enregistrement_pla
         retirer_coup(l, partie);
         R_deplacement_H_elargie(partie,l,enregistrement_plateau);
     }
+    
     if ((plateau[x - 1][y - 1].e == boiteG) 
     && (plateau[x - 2][y - 1].e != mur && plateau[x - 2][y].e != mur)
     && (partie->coup.fin == 4)){
@@ -129,6 +130,9 @@ void R_deplacement_H_elargie(Partie* partie, Liste* l, Case** enregistrement_pla
         R_deplacement_H_elargie(partie,l,enregistrement_plateau);
     }
     
+    x = partie->coup.xFrom;
+    y = partie->coup.yFrom;
+    
     if ((plateau[x - 1][y].e == boiteG && plateau[x - 1][y - 2].e == boiteG && plateau[x - 1][y - 1].e == robot)
     && (plateau[x - 2][y].e != mur && plateau[x - 2][y + 1].e != mur && plateau[x - 2][y - 1].e != mur && plateau[x - 2][y - 2].e != mur)
     && (partie->coup.fin == 4)){
@@ -152,6 +156,7 @@ void R_deplacement_H_elargie(Partie* partie, Liste* l, Case** enregistrement_pla
         
         R_deplacement_H_elargie(partie,l,enregistrement_plateau);
     }
+    
     if ((plateau[x - 1][y - 2].e == boiteG && plateau[x - 1][y - 1].e == boiteD)
     && (plateau[x - 2][y - 2].e != mur && plateau[x - 2][y - 1].e != mur) 
     && (partie->coup.fin == 4)){

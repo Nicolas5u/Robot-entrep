@@ -13,13 +13,14 @@
  * @param partie La structure Partie contenant l'entrepôt.
  * @return La somme calculée comme score.
  */
+
 int Somme(Partie partie){
 
     Case **plateau = partie.entrepot;
     int somme = 0;
     for (int i = 1; i < partie.largeur - 1; i++) {
         for (int j = 1; j < partie.hauteur - 1; j++) {
-            if (plateau[j][i].e == boite || plateau[j][i].e == boiteG || plateau[j][i].e == boiteD){
+            if (plateau[j][i].e == boite || plateau[j][i].e == boiteG){
                 somme += 100 * j + i;
             }
         }
@@ -27,3 +28,22 @@ int Somme(Partie partie){
     return somme;
 }
 
+/*
+int Somme(Partie partie) {
+    Case **plateau = partie.entrepot;
+    int somme = 0;
+
+    // j = ligne (y), i = colonne (x)
+    for (int j = 1; j < partie.hauteur - 1; j++) {
+        for (int i = 1; i < partie.largeur - 1; i++) {
+            if (plateau[j][i].e == boiteG) { // on ne compte qu'une fois par grande boîte
+                int dist_haut   = j; // distance directe jusqu'au bord supérieur
+                int dist_gauche = i; // distance directe jusqu'au bord gauche
+                somme += 100 * j + i;
+            }
+        }
+    }
+    return somme;
+}
+
+*/

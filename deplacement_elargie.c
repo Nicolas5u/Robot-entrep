@@ -29,7 +29,6 @@ void deplacement_D_elargie(Partie* partie) {
         plateau[x][y + 1].e = robot;
         plateau[x][y].e = caseDeChemin;
         partie->coup.yFrom = y + 1;
-        printf("Déplacement robot seul vers la droite.\n");
         return;
     }
 
@@ -48,7 +47,6 @@ void deplacement_D_elargie(Partie* partie) {
 
         // Vérifier que la case juste après la dernière paire est vide
         if (yCourant < partie->largeur && plateau[x][yCourant].e == caseDeChemin) {
-            printf("Poussée de %d paire(s) [] vers la droite.\n", nbPaires);
             // Décaler toutes les paires vers la droite (en partant de la fin)
             for (int i = nbPaires - 1; i >= 0; i--) {
                 int posG = y + 1 + i * 2;
@@ -61,12 +59,12 @@ void deplacement_D_elargie(Partie* partie) {
             plateau[x][y].e = caseDeChemin;
             partie->coup.yFrom = y + 1;
         } else {
-            printf("Déplacement impossible, obstacle après la dernière boîte.\n");
+            printf("Un mur bloque le déplacement vers la droite\n");
         }
         return;
     }
 
-    printf("Déplacement impossible.\n");
+    printf("Déplacement impossible\n");
 }
 
 
@@ -85,7 +83,6 @@ void deplacement_G_elargie(Partie* partie) {
         plateau[x][y - 1].e = robot;
         plateau[x][y].e = caseDeChemin;
         partie->coup.yFrom = y - 1;
-        printf("Déplacement robot seul vers la gauche.\n");
         return;
     }
 
@@ -104,7 +101,6 @@ void deplacement_G_elargie(Partie* partie) {
 
         // Vérifier que la case juste avant la première paire est vide
         if (yCourant >= 0 && plateau[x][yCourant].e == caseDeChemin) {
-            printf("Poussée de %d paire(s) [] vers la gauche.\n", nbPaires);
             // Décaler toutes les paires vers la gauche (en partant de la plus proche du robot)
             for (int i = 0; i < nbPaires; i++) {
                 int posD = y - 1 - i * 2;
@@ -117,11 +113,11 @@ void deplacement_G_elargie(Partie* partie) {
             plateau[x][y].e = caseDeChemin;
             partie->coup.yFrom = y - 1;
         } else {
-            printf("Déplacement impossible, obstacle avant la première boîte.\n");
+            printf("Un mur bloque le déplacement vers la gauche\n");
         }
         return;
     }
 
-    printf("Déplacement impossible.\n");
+    printf("Déplacement impossible\n");
 }
 
