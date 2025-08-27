@@ -2,29 +2,29 @@
 
 /**
  * @file main.c
- * @brief Point d'entrée principal du programme "Les malheurs de l'entrepôt".
+ * @brief Point d'entrée principal du programme "Les malheurs de l'entrepôt"
  */
 
 /**
- * @brief Structure globale représentant la partie en cours.
+ * @brief Structure globale représentant la partie
  */
 Partie partie;
 
-/**
- * @brief Variable globale utilisée pour interagir avec les menus et les commandes clavier.
- */
 char echap;
 
-
-
-
-
 /**
- * @brief Fonction principale du programme.
+ * @brief Fonction principale du programme
  * 
- * Permet à l'utilisateur de choisir le mode d'affichage (terminal ou SDL) et le type de commande (fichier ou clavier).
+ * - o : Affichage terminal avec fichier de commandes 
+ * - t : Affichage terminal avec initialisation et commandes via fichier
+ * - u : Affichage terminal avec déplacements clavier (zqsd)
+ * - m : Mode élargi avec fichier pour initialisation + commandes
+ * - l : Mode élargi avec fichier pour initialisation + déplacements clavier (zqsd)
+ * - y : Affichage graphique SDL avec fichier de commandes
+ * - i : Affichage graphique SDL avec déplacements clavier
+ * - p : Quitter le programme
  * 
- * @return int Code de retour du programme (0 si succès).
+ * @return int Code de retour du programme 0 en cas de succès
  */
 int main() {
 
@@ -41,7 +41,6 @@ int main() {
            " taper 'l' pour l'entrepôt sur le terminal avec le fichier commande pour l'initialisation de l'entrepôt élargie et le déplacement du robot zqsd,\n"
            " taper 'y' pour l'entrepôt sur la fenêtre de graphique avec le fichier commande pour les déplacements,\n"
            " taper 'i' pour l'entrepôt sur la fenêtre de graphique avec le déplacement du robot zqsd,\n"
-           " taper 'g' pour le problème de déplacement,\n"
            " sélectionner 'p' pour sortir.\n");
 
     scanf(" %c", &echap);
@@ -120,26 +119,8 @@ int main() {
         afficher_entrepot(&partie);
     }
     
-    if (echap == 'g') {
-    
-        // on affiche l'entrepôt non élargie
-        printf("Entrepôt initial : \n");
-        determiner_dimensions("commandeProf3.txt", &partie);
-        
-        // on utilise le fichier pour créé l'entrepôt élargie et le modifier
-        partie.entrepot = cree_et_initialisation_fichier("commandeProf3.txt", &partie);
-        printf("Entrepôt élargie : \n");
-        while (echap != 'p') {
-            afficher_entrepot(&partie);
-            deplacement_elargie(&partie, &echap);
-            printf(" 'p' pour quitter le mode \n");
-        }
-        echap = 'p';
-        printf("Entrepôt élargie après déplacement : \n");
-        afficher_entrepot(&partie);
-    }
 
-    if (echap == 'u' || echap == 'o' || echap == 'i' || echap == 'y' || echap == 't' || echap == 'm' || echap == 'l' || echap == 'i' || echap == 'g') {
+    if (echap == 'u' || echap == 'o' || echap == 'i' || echap == 'y' || echap == 't' || echap == 'm' || echap == 'l' || echap == 'i') {
         printf("Somme des coordonnées GPS de toutes les boîtes : %d\n", Somme(partie));
         liberer_entrepot(partie);
     }

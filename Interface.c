@@ -49,7 +49,7 @@ Case** creer_entrepot(Partie* partie){
     }
 
     printf("petit entrepôt prédéfini\n");
-    PlacementInitiale1(entrepot, partie);
+    PlacementInitiale(entrepot, partie);
     
     return entrepot;
 }
@@ -60,7 +60,7 @@ Case** creer_entrepot(Partie* partie){
  * @param entrepot Tableau 2D représentant l'entrepôt.
  * @param partie Pointeur vers la structure Partie.
  */
-void PlacementInitiale1(Case** entrepot, Partie* partie){
+void PlacementInitiale(Case** entrepot, Partie* partie){
     entrepot[2][2].e = robot;
     partie->coup.xFrom = 2;
     partie->coup.yFrom = 2;
