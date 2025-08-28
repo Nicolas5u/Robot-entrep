@@ -1,4 +1,9 @@
 var searchData=
 [
-  ['vide_0',['vide',['../declaration_8h.html#aa94081298ab2dfd0f261cce6c203d9aaaf9379cac33a48e7d53e1728bdaec879d',1,'declaration.h']]]
+  ['r_5fdeplacement_5fb_5felargie_0',['r_deplacement_b_elargie',['../declaration_8h.html#a6be8563a057a08346bdbe18f9ae38683',1,'R_deplacement_B_elargie(Partie *partie, Liste *, Case **lenregistrement_plateau):&#160;deplacement_elargie_bas.c'],['../deplacement__elargie__bas_8c.html#a699afe3fdb10bf573436a559c3f58be6',1,'R_deplacement_B_elargie(Partie *partie, Liste *l, Case **enregistrement_plateau):&#160;deplacement_elargie_bas.c']]],
+  ['r_5fdeplacement_5fh_5felargie_1',['r_deplacement_h_elargie',['../declaration_8h.html#ae6d424840294017dd27a3db64a933f75',1,'R_deplacement_H_elargie(Partie *partie, Liste *, Case **lenregistrement_plateau):&#160;deplacement_elargie_haut.c'],['../deplacement__elargie__haut_8c.html#a36a133a667e8de03ccaaaa874b7872dc',1,'R_deplacement_H_elargie(Partie *partie, Liste *l, Case **enregistrement_plateau):&#160;deplacement_elargie_haut.c']]],
+  ['readme_2emd_2',['README.md',['../README_8md.html',1,'']]],
+  ['retirer_5fcoup_3',['retirer_coup',['../declaration_8h.html#aba0ecbb90de014a0e7f56a09e4ed2018',1,'retirer_coup(Liste *l, Partie *partie):&#160;liste.c'],['../liste_8c.html#aba0ecbb90de014a0e7f56a09e4ed2018',1,'retirer_coup(Liste *l, Partie *partie):&#160;liste.c']]],
+  ['robot_4',['robot',['../declaration_8h.html#a8b9bbfde536d6e2a415388fa10347062ab6cbd4a6b98e28fa4f2fc95b2eedb7c9',1,'declaration.h']]],
+  ['robot_20entrep_5',['Robot-entrep',['../md_README.html',1,'']]]
 ];

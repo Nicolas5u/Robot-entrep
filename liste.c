@@ -1,6 +1,21 @@
 #include "declaration.h"
 
-// Créer une liste vide
+/**
+ * @file liste.c
+ * @brief Gestion des listes chaînées (pour mémoriser les coups lors des déplacements)
+ *
+ * Ce fichier contient l’implémentation des fonctions permettant de créer, manipuler et
+ * libérer une liste chaînée utilisée pour stocker des coups (positions intermédiaires)
+ */
+
+/**
+ * @brief Crée une liste chaînée vide
+ *
+ * Alloue dynamiquement une structure Liste et initialise ses pointeurs à NULL
+ * En cas d’échec d’allocation, le programme s’arrête avec EXIT_FAILURE
+ *
+ * @return Pointeur vers la liste nouvellement créée.
+ */
 Liste* creer_liste() {
     Liste* l = malloc(sizeof(Liste));
     if (!l) {
@@ -12,7 +27,15 @@ Liste* creer_liste() {
     return l;
 }
 
-// Ajouter un coup à la fin
+/**
+ * @brief Ajoute une position du robot non vérifié (x,y) à la fin de la liste
+ *
+ * Alloue un nouveau noeud contenant la position et l’ajoute en queue de la liste
+ *
+ * @param l Pointeur vers la liste
+ * @param x Coordonnée
+ * @param y Coordonnée
+ */
 void ajouter_coup(Liste* l, int x, int y) {
     Noeud* nouveau = malloc(sizeof(Noeud));
     if (!nouveau) {
@@ -35,12 +58,25 @@ void ajouter_coup(Liste* l, int x, int y) {
     }
 }
 
-// Vérifie si la liste est vide
+/**
+ * @brief Vérifie si la liste est vide
+ *
+ * @param l Pointeur vers la liste
+ * @return 1 si la liste est vide, 0 sinon
+ */
 int liste_vide(Liste* l) {
     return l->tete == NULL;
 }
 
-// Retirer et récupérer le premier coup
+/**
+ * @brief Retire et récupère le premier coup de la liste
+ *
+ * Le premier noeud est supprimé et ses coordonnées sont copiées
+ *
+ * @param l Pointeur vers la liste
+ * @param partie Pointeur vers la partie, dont la structure Coup est mise à jour
+ * @return 1 si un coup a été retiré avec succès, 0 si la liste était vide
+ */
 int retirer_coup(Liste* l, Partie* partie) {
     if (liste_vide(l)) return 0;  // rien à retirer
 
@@ -59,9 +95,13 @@ int retirer_coup(Liste* l, Partie* partie) {
     return 1; // succès
 }
 
-
-
-// Afficher toute la liste
+/**
+ * @brief Affiche le contenu de la liste
+ *
+ * Parcourt la liste et affiche chaque couple de coordonnées (utilisé pour la résolution des problème du code)
+ *
+ * @param l Pointeur vers la liste
+ */
 void afficher_liste(Liste* l) {
     Noeud* courant = l->tete;
     printf("Liste des coups :\n");
@@ -71,7 +111,13 @@ void afficher_liste(Liste* l) {
     }
 }
 
-// Libérer toute la liste
+/**
+ * @brief Libère toute la mémoire occupée par la liste
+ *
+ * Parcourt la liste, libère chaque noeud, puis libère la structure Liste elle-même
+ *
+ * @param l Pointeur vers la liste à détruire
+ */
 void liberer_liste(Liste* l) {
     Noeud* courant = l->tete;
     while (courant != NULL) {
@@ -81,3 +127,4 @@ void liberer_liste(Liste* l) {
     }
     free(l);
 }
+

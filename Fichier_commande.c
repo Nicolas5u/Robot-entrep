@@ -1,10 +1,20 @@
 #include "declaration.h"
 
 /**
- * @brief Lit les commandes depuis un fichier et exécute les déplacements correspondants.
+ * @file fichier_commandes.c
+ * @brief Fonctions de gestion de lecture et initialisation de l'entrepôt à partir de fichiers
+ *
+ * Ce fichier contient l'implémentation des fonctions permettant de :
+ * - Lire des commandes de déplacement depuis un fichier
+ * - Déterminer les dimensions d’un entrepôt décrit dans un fichier
+ * - Initialiser la structure de l’entrepôt (en version normale et élargie)
+ */
+ 
+/**
+ * @brief Lit les commandes depuis un fichier et exécute les déplacements correspondants
  * 
- * @param Commande_Du_Robot Chemin vers le fichier de commandes.
- * @param partie Pointeur vers la structure de la partie.
+ * @param Commande_Du_Robot Chemin vers le fichier de commandes
+ * @param partie Pointeur vers la structure de la partie
  */
 
 
@@ -41,6 +51,12 @@ void fichier_commandes(const char* Commande_Du_Robot, Partie* partie){
     }
 }
 
+/**
+ * @brief Lit les commandes depuis un fichier et exécute les déplacements correspondants en version élargie
+ * 
+ * @param Commande_Du_Robot Chemin vers le fichier de commandes
+ * @param partie Pointeur vers la structure de la partie
+ */
 void fichier_commandes_elargie(const char* Commande_Du_Robot, Partie* partie){
 
     FILE* fichier = fopen(Commande_Du_Robot, "r");
@@ -74,6 +90,10 @@ void fichier_commandes_elargie(const char* Commande_Du_Robot, Partie* partie){
     }
 }
 
+/**
+ * @brief Détermine la dimension de l'entrepôt
+ * 
+ */
 void determiner_dimensions(const char* commandeProf,Partie* partie) {
     FILE* fichier = fopen(commandeProf, "r");
     if (fichier == NULL) {
@@ -127,7 +147,13 @@ void determiner_dimensions(const char* commandeProf,Partie* partie) {
     partie->largeur = LARGEUR;
 }
 
-
+/**
+ * @brief Crée et initialise un entrepôt en lisant un fichier
+ *
+ * @param commandeProf Chemin vers le fichier contenant l’entrepôt
+ * @param partie Pointeur vers la structure Partie (dimensions déjà déterminées)
+ * @return Case** Pointeur vers le tableau 2D alloué et rempli
+ */
 Case** cree_et_initialisation_fichier(const char* commandeProf, Partie* partie) {
 
     FILE* fichier = fopen(commandeProf, "r");
@@ -195,6 +221,13 @@ Case** cree_et_initialisation_fichier(const char* commandeProf, Partie* partie) 
     return entrepot;
 }
 
+/**
+ * @brief Crée et initialise un entrepôt en lisant un fichier en version élargie
+ *
+ * @param commandeProf Chemin vers le fichier contenant l’entrepôt
+ * @param partie Pointeur vers la structure Partie (dimensions déjà déterminées)
+ * @return Case** Pointeur vers le tableau 2D alloué et rempli
+ */
 Case** cree_et_initialisation_fichier_elargie(const char* commandeProf, Partie* partie) {
     
     FILE* fichier = fopen(commandeProf, "r");

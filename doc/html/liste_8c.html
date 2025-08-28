@@ -1,0 +1,310 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Les Malheurs de l&#39;Entrepôt: Référence du fichier liste.c</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">Les Malheurs de l&#39;Entrepôt
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Chargement...</div>
+<div class="SRStatus" id="Searching">Recherche...</div>
+<div class="SRStatus" id="NoMatches">Aucune correspondance</div>
+</div>
+</div>
+</div>
+</div>
+
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#func-members">Fonctions</a>  </div>
+  <div class="headertitle"><div class="title">Référence du fichier liste.c</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Gestion des listes chaînées (pour mémoriser les coups lors des déplacements)  
+<a href="#details">Plus de détails...</a></p>
+<div class="textblock"><code>#include &quot;<a class="el" href="declaration_8h_source.html">declaration.h</a>&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Graphe des dépendances par inclusion de liste.c:</div>
+<div class="dyncontent">
+<div class="center"><img src="liste_8c__incl.png" border="0" usemap="#aliste_8c" alt=""/></div>
+</div>
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Fonctions</h2></td></tr>
+<tr class="memitem:a6a936c5b0127fe5ec6c86a936eb65905" id="r_a6a936c5b0127fe5ec6c86a936eb65905"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structListe.html">Liste</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="liste_8c.html#a6a936c5b0127fe5ec6c86a936eb65905">creer_liste</a> ()</td></tr>
+<tr class="memdesc:a6a936c5b0127fe5ec6c86a936eb65905"><td class="mdescLeft">&#160;</td><td class="mdescRight">Crée une liste chaînée vide.  <br /></td></tr>
+<tr class="separator:a6a936c5b0127fe5ec6c86a936eb65905"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5ce633c97621482d7514600ae42ff892" id="r_a5ce633c97621482d7514600ae42ff892"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="liste_8c.html#a5ce633c97621482d7514600ae42ff892">ajouter_coup</a> (<a class="el" href="structListe.html">Liste</a> *l, int x, int y)</td></tr>
+<tr class="memdesc:a5ce633c97621482d7514600ae42ff892"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ajoute une position du robot non vérifié (x,y) à la fin de la liste.  <br /></td></tr>
+<tr class="separator:a5ce633c97621482d7514600ae42ff892"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5ccd6f1545595b04d8d00f694fdfbe8a" id="r_a5ccd6f1545595b04d8d00f694fdfbe8a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="liste_8c.html#a5ccd6f1545595b04d8d00f694fdfbe8a">liste_vide</a> (<a class="el" href="structListe.html">Liste</a> *l)</td></tr>
+<tr class="memdesc:a5ccd6f1545595b04d8d00f694fdfbe8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vérifie si la liste est vide.  <br /></td></tr>
+<tr class="separator:a5ccd6f1545595b04d8d00f694fdfbe8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aba0ecbb90de014a0e7f56a09e4ed2018" id="r_aba0ecbb90de014a0e7f56a09e4ed2018"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="liste_8c.html#aba0ecbb90de014a0e7f56a09e4ed2018">retirer_coup</a> (<a class="el" href="structListe.html">Liste</a> *l, <a class="el" href="structPartie.html">Partie</a> *<a class="el" href="main_8c.html#a263c9e48b031508e04265129666714fd">partie</a>)</td></tr>
+<tr class="memdesc:aba0ecbb90de014a0e7f56a09e4ed2018"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retire et récupère le premier coup de la liste.  <br /></td></tr>
+<tr class="separator:aba0ecbb90de014a0e7f56a09e4ed2018"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb18e1967651d5b59c81da5cb5e06b41" id="r_adb18e1967651d5b59c81da5cb5e06b41"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="liste_8c.html#adb18e1967651d5b59c81da5cb5e06b41">afficher_liste</a> (<a class="el" href="structListe.html">Liste</a> *l)</td></tr>
+<tr class="memdesc:adb18e1967651d5b59c81da5cb5e06b41"><td class="mdescLeft">&#160;</td><td class="mdescRight">Affiche le contenu de la liste.  <br /></td></tr>
+<tr class="separator:adb18e1967651d5b59c81da5cb5e06b41"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a27a5baea07cfa86a894c31a4e18b6c2d" id="r_a27a5baea07cfa86a894c31a4e18b6c2d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="liste_8c.html#a27a5baea07cfa86a894c31a4e18b6c2d">liberer_liste</a> (<a class="el" href="structListe.html">Liste</a> *l)</td></tr>
+<tr class="memdesc:a27a5baea07cfa86a894c31a4e18b6c2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Libère toute la mémoire occupée par la liste.  <br /></td></tr>
+<tr class="separator:a27a5baea07cfa86a894c31a4e18b6c2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Description détaillée</h2>
+<div class="textblock"><p>Gestion des listes chaînées (pour mémoriser les coups lors des déplacements) </p>
+<p>Ce fichier contient l’implémentation des fonctions permettant de créer, manipuler et libérer une liste chaînée utilisée pour stocker des coups (positions intermédiaires) </p>
+</div><h2 class="groupheader">Documentation des fonctions</h2>
+<a id="adb18e1967651d5b59c81da5cb5e06b41" name="adb18e1967651d5b59c81da5cb5e06b41"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adb18e1967651d5b59c81da5cb5e06b41">&#9670;&#160;</a></span>afficher_liste()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void afficher_liste </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structListe.html">Liste</a> *&#160;</td>
+          <td class="paramname"><em>l</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Affiche le contenu de la liste. </p>
+<p>Affiche le contenu d'une liste.</p>
+<p>Parcourt la liste et affiche chaque couple de coordonnées (utilisé pour la résolution des problème du code)</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">l</td><td>Pointeur vers la liste </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a5ce633c97621482d7514600ae42ff892" name="a5ce633c97621482d7514600ae42ff892"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5ce633c97621482d7514600ae42ff892">&#9670;&#160;</a></span>ajouter_coup()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ajouter_coup </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structListe.html">Liste</a> *&#160;</td>
+          <td class="paramname"><em>l</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>y</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Ajoute une position du robot non vérifié (x,y) à la fin de la liste. </p>
+<p>Ajoute un coup à une liste.</p>
+<p>Alloue un nouveau noeud contenant la position et l’ajoute en queue de la liste</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">l</td><td>Pointeur vers la liste </td></tr>
+    <tr><td class="paramname">x</td><td>Coordonnée </td></tr>
+    <tr><td class="paramname">y</td><td>Coordonnée </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a6a936c5b0127fe5ec6c86a936eb65905" name="a6a936c5b0127fe5ec6c86a936eb65905"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6a936c5b0127fe5ec6c86a936eb65905">&#9670;&#160;</a></span>creer_liste()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structListe.html">Liste</a> * creer_liste </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Crée une liste chaînée vide. </p>
+<p>Crée une nouvelle liste.</p>
+<p>Alloue dynamiquement une structure <a class="el" href="structListe.html" title="Représente une liste chaînée.">Liste</a> et initialise ses pointeurs à NULL En cas d’échec d’allocation, le programme s’arrête avec EXIT_FAILURE</p>
+<dl class="section return"><dt>Renvoie</dt><dd>Pointeur vers la liste nouvellement créée. </dd></dl>
+
+</div>
+</div>
+<a id="a27a5baea07cfa86a894c31a4e18b6c2d" name="a27a5baea07cfa86a894c31a4e18b6c2d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a27a5baea07cfa86a894c31a4e18b6c2d">&#9670;&#160;</a></span>liberer_liste()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void liberer_liste </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structListe.html">Liste</a> *&#160;</td>
+          <td class="paramname"><em>l</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Libère toute la mémoire occupée par la liste. </p>
+<p>Libère la mémoire associée à une liste.</p>
+<p>Parcourt la liste, libère chaque noeud, puis libère la structure <a class="el" href="structListe.html" title="Représente une liste chaînée.">Liste</a> elle-même</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">l</td><td>Pointeur vers la liste à détruire </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a5ccd6f1545595b04d8d00f694fdfbe8a" name="a5ccd6f1545595b04d8d00f694fdfbe8a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5ccd6f1545595b04d8d00f694fdfbe8a">&#9670;&#160;</a></span>liste_vide()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int liste_vide </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structListe.html">Liste</a> *&#160;</td>
+          <td class="paramname"><em>l</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Vérifie si la liste est vide. </p>
+<p>Vérifie si une liste est vide.</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">l</td><td>Pointeur vers la liste </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>1 si la liste est vide, 0 sinon </dd></dl>
+
+</div>
+</div>
+<a id="aba0ecbb90de014a0e7f56a09e4ed2018" name="aba0ecbb90de014a0e7f56a09e4ed2018"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba0ecbb90de014a0e7f56a09e4ed2018">&#9670;&#160;</a></span>retirer_coup()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int retirer_coup </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structListe.html">Liste</a> *&#160;</td>
+          <td class="paramname"><em>l</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structPartie.html">Partie</a> *&#160;</td>
+          <td class="paramname"><em>partie</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Retire et récupère le premier coup de la liste. </p>
+<p>Retire un coup d'une liste.</p>
+<p>Le premier noeud est supprimé et ses coordonnées sont copiées</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">l</td><td>Pointeur vers la liste </td></tr>
+    <tr><td class="paramname">partie</td><td>Pointeur vers la partie, dont la structure <a class="el" href="structCoup.html" title="Représente un mouvement ou une action du robot.">Coup</a> est mise à jour </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>1 si un coup a été retiré avec succès, 0 si la liste était vide </dd></dl>
+
+</div>
+</div>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Généré par&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+</small></address>
+</body>
+</html>

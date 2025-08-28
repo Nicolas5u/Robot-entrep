@@ -1,6 +1,11 @@
 #include "declaration.h"
 
-
+/**
+ * @brief Déplace le robot vers le haut avec gestion des déplacements élargis
+ * 
+ * @param partie Pointeur vers la structure de la partie
+ */
+ 
 void deplacement_H_elargie(Partie* partie){
     
     Case** plateau = partie->entrepot;
@@ -74,6 +79,11 @@ void deplacement_H_elargie(Partie* partie){
     liberer_liste(l);
     liberer_entrepot_enregistre(enregistrement_plateau, partie->hauteur);
 }
+
+/**
+ * @brief Fonction récursive qui gère les déplacements élargis vers le haut
+ *        et restaure le plateau si le mouvement est impossible
+ */
 
 void R_deplacement_H_elargie(Partie* partie, Liste* l, Case** enregistrement_plateau){
     
@@ -170,7 +180,10 @@ void R_deplacement_H_elargie(Partie* partie, Liste* l, Case** enregistrement_pla
     }
 }
 
-
+/**
+ * @brief Déplace les boîtes [@ vers le haut après validation
+ */
+ 
 void deplacement_H_elargie_affichage(Partie* partie){
     Case** plateau = partie->entrepot;
     
@@ -186,7 +199,12 @@ void deplacement_H_elargie_affichage(Partie* partie){
     }
 }
 
-
+/**
+ * @brief Vérifie si un déplacement vers le haut est possible
+ * 
+ * @return 1 si bloqué, 0 sinon
+ */
+ 
 int deplacement_haut_possible(Partie* partie){
 
     int x = partie->coup.xFrom;

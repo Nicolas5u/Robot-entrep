@@ -93,11 +93,10 @@ Fonctions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a263c9e48b031508e04265129666714fd" id="r_a263c9e48b031508e04265129666714fd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="declaration_8h.html#a13e052da47d019da39bfb93a749f1624">Partie</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8c.html#a263c9e48b031508e04265129666714fd">partie</a></td></tr>
-<tr class="memdesc:a263c9e48b031508e04265129666714fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Structure globale représentant la partie en cours.  <br /></td></tr>
+<tr class="memitem:a263c9e48b031508e04265129666714fd" id="r_a263c9e48b031508e04265129666714fd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structPartie.html">Partie</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8c.html#a263c9e48b031508e04265129666714fd">partie</a></td></tr>
+<tr class="memdesc:a263c9e48b031508e04265129666714fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Structure globale représentant la partie.  <br /></td></tr>
 <tr class="separator:a263c9e48b031508e04265129666714fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad8b6151db241d8c77ceeefb89ef84edf" id="r_ad8b6151db241d8c77ceeefb89ef84edf"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8c.html#ad8b6151db241d8c77ceeefb89ef84edf">echap</a></td></tr>
-<tr class="memdesc:ad8b6151db241d8c77ceeefb89ef84edf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Variable globale utilisée pour interagir avec les menus et les commandes clavier.  <br /></td></tr>
 <tr class="separator:ad8b6151db241d8c77ceeefb89ef84edf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Description détaillée</h2>
@@ -119,8 +118,17 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Fonction principale du programme. </p>
-<p>Permet à l'utilisateur de choisir le mode d'affichage (terminal ou SDL) et le type de commande (fichier ou clavier).</p>
-<dl class="section return"><dt>Renvoie</dt><dd>int Code de retour du programme (0 si succès). </dd></dl>
+<ul>
+<li>o : Affichage terminal avec fichier de commandes</li>
+<li>t : Affichage terminal avec initialisation et commandes via fichier</li>
+<li>u : Affichage terminal avec déplacements clavier (zqsd)</li>
+<li>m : Mode élargi avec fichier pour initialisation + commandes</li>
+<li>l : Mode élargi avec fichier pour initialisation + déplacements clavier (zqsd)</li>
+<li>y : Affichage graphique SDL avec fichier de commandes</li>
+<li>i : Affichage graphique SDL avec déplacements clavier</li>
+<li>p : Quitter le programme</li>
+</ul>
+<dl class="section return"><dt>Renvoie</dt><dd>int Code de retour du programme 0 en cas de succès </dd></dl>
 
 </div>
 </div>
@@ -137,8 +145,6 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Variable globale utilisée pour interagir avec les menus et les commandes clavier. </p>
-
 </div>
 </div>
 <a id="a263c9e48b031508e04265129666714fd" name="a263c9e48b031508e04265129666714fd"></a>
@@ -148,12 +154,12 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="declaration_8h.html#a13e052da47d019da39bfb93a749f1624">Partie</a> <a class="el" href="structpartie.html">partie</a></td>
+          <td class="memname"><a class="el" href="structPartie.html">Partie</a> partie</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Structure globale représentant la partie en cours. </p>
+<p>Structure globale représentant la partie. </p>
 
 </div>
 </div>

@@ -1,6 +1,21 @@
 #include "declaration.h"
- 
-void deplacement_elargie(Partie* partie, char* echap){
+
+/**
+ * @brief Gère les déplacements du robot dans l'entrepôt élargi
+ * 
+ * Demande à l'utilisateur une direction (z, q, s, d) puis appelle la fonction
+ * correspondante. Met également à jour la variable echap pour gérer la sortie.
+ * 
+ * - z : Haut  
+ * - s : Bas  
+ * - q : Gauche  
+ * - d : Droite  
+ * - p : Quitter les modes (toujours d'actualité) 
+ * 
+ * @param partie Pointeur vers la structure de la partie
+ * @param echap Pointeur vers la variable de contrôle des touches
+ */
+void deplacement_elargie(Partie* partie, char* echap) {
 
     char direction;
     printf("dans quelle direction va se déplacer le robot ? ");
@@ -19,12 +34,21 @@ void deplacement_elargie(Partie* partie, char* echap){
     }
 }
 
+/**
+ * @brief Déplace le robot vers la droite dans l'entrepôt élargi
+ * 
+ * - Si la case à droite est libre alors le robot avance seul
+ * - Si une boîte (paire `[]`) est rencontrée alors toutes les paires sont poussées vers la droite (si la place est libre)
+ * - Si un obstacle bloque alors le déplacement est annulé
+ * 
+ * @param partie Pointeur vers la structure de la partie
+ */
 void deplacement_D_elargie(Partie* partie) {
     Case** plateau = partie->entrepot;
     int x = partie->coup.xFrom;
     int y = partie->coup.yFrom;
 
-    // Si la case à droite est vide -> robot avance seul
+    // Si la case à droite est vide alors le robot avance seul
     if (plateau[x][y + 1].e == caseDeChemin) {
         plateau[x][y + 1].e = robot;
         plateau[x][y].e = caseDeChemin;
@@ -67,18 +91,21 @@ void deplacement_D_elargie(Partie* partie) {
     printf("Déplacement impossible\n");
 }
 
-
 /**
- * @brief Déplace le robot vers la gauche si le déplacement est possible.
+ * @brief Déplace le robot vers la gauche dans l'entrepôt élargi
  * 
- * @param partie Pointeur vers la structure de la partie.
+ * - Si la case à gauche est libre alors le robot avance seul.  
+ * - Si une boîte (paire `[]`) est rencontrée alors toutes les paires sont poussées vers la gauche (si la place est libre)
+ * - Si un obstacle bloque alors le déplacement est annulé
+ * 
+ * @param partie Pointeur vers la structure de la partie
  */
 void deplacement_G_elargie(Partie* partie) {
     Case** plateau = partie->entrepot;
     int x = partie->coup.xFrom;
     int y = partie->coup.yFrom;
 
-    // Si la case à gauche est vide -> robot avance seul
+    // Si la case à gauche est vide alors le robot avance seul
     if (plateau[x][y - 1].e == caseDeChemin) {
         plateau[x][y - 1].e = robot;
         plateau[x][y].e = caseDeChemin;
