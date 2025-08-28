@@ -7,4 +7,20 @@ Ce projet est constitué de différent fichier : makefile, déclaration, main, i
 Pour installer la bibliothèque de SDL2 (sur linux):
 sudo apt-get install libsdl2-dev
 
-Une fois l'installation de la bibliothèque il suffit de faire un make run, puis de sélectionner l'un des quatre modes d'expériences: taper 'o' pour l'entrepôt sur le terminal avec le fichier commande, taper 'u' pour l'entrepôt sur le terminal avec le déplacement du robot en "zqsd", taper 'y' pour l'entrepôt sur la fenêtre de graphique avec le fichier commande, taper 'i' pour l'entrepôt sur la fenêtre de graphique avec le déplacement du robot en "zqsd" ou 'p' pour sortir (la selection 'p' permet de sortir de l'entrepôt sur le terminal avec le déplacement du robot en "zqsd").
+Une fois l'installation de la bibliothèque il suffit de faire un make run, puis de sélectionner l'un des modes d'expériences: 
+
+La touche o affiche l’entrepôt dans le terminal et utilise un fichier de commandes pour les déplacements. 
+
+La touche t affiche l’entrepôt dans le terminal avec une initialisation et des déplacements définis par un fichier.
+
+La touche u affiche l’entrepôt dans le terminal et permet de déplacer le robot avec le clavier (touches zqsd).
+
+La touche m lance le mode élargi dans le terminal avec une initialisation et des déplacements via un fichier.
+
+La touche l lance le mode élargi dans le terminal avec une initialisation depuis un fichier et des déplacements avec le clavier (touches zqsd).
+
+La touche y ouvre une fenêtre graphique avec SDL2 et contrôle le robot à l’aide d’un fichier de commandes.
+
+La touche i ouvre une fenêtre graphique avec SDL2 et permet de déplacer le robot avec le clavier (touches zqsd).
+
+La touche p permet de quitter le programme à tout moment.
